@@ -1,0 +1,17 @@
+body {
+    padding-bottom: 40px;
+    padding-top: 60px;
+}
+
+h3{
+	color: yellow;
+}
+
+@media (min-width: 979px) {
+    .sidebar-nav-fixed {
+        position:fixed;
+        top:60px;
+        width:23.404%;
+        float:left;
+    }
+}
