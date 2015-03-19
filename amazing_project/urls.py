@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from amazingapp import views
 
 urlpatterns = patterns('',
     # Examples:
@@ -8,4 +9,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^mazeapp', include("amazingapp.urls")),
+    url(r'^$', views.index),
 )
