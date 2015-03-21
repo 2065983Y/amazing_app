@@ -12,44 +12,18 @@ class Node:
     walkable = True
 
 
-lines = []
-f = open("grid", 'rb')
-lines = f.readlines()
-f.close()
-
-grid = []
-y = 0
-for line in lines:
-    line = line[:-1]
-    line = [int(x) for x in line]
-    temp = []
-    for x in range(len(line)):
-        n = Node()
-        n.x = x
-        n.y = y
-        n.walkable = (line[x] == 1)
-        temp += [n]
-    grid += [temp]
-    y += 1
-
-end = grid[(len(grid)) - 1][-1]
-start = grid[0][0]
-
-
 def heuristicScore(a, b):
     c = sqrt(pow((a.x - b.x), 2) + (pow((a.y - b.y), 2)))
     return c
 
 
 path = []
-
-
 def r_path(dic, point):
     if point in dic:
         if isinstance(r_path(dic, dic[point]), Node):
             path.append(r_path(dic, dic[point]))
         path.append(point)
-        return (path, len(path))
+        return path
     else:
         return point
 
@@ -78,8 +52,7 @@ def neigh_nodes(a, grid):
 
     return nodes
 
-
-def astar(start, end, grid):
+def __aStar(start, end, grid):
     closed_set = set([])
     open_set = set([start])
     dic = {}
@@ -89,7 +62,8 @@ def astar(start, end, grid):
     while len(open_set) > 0:
         current = min(open_set, key=attrgetter("f_score"))
         if current == end:
-            return r_path(dic, end)
+            path = r_path(dic, end)
+            return path, len(path)
         open_set.remove(current)
         closed_set.add(current)
         #neigs = neigh_nodes(current, grid)
@@ -109,11 +83,47 @@ def astar(start, end, grid):
                 if a not in open_set:
                     open_set.add(a)
 
-    return
+    return None, 0
+
+def aStar(grid, start=None, end=None):
+    grid = createMatrix(grid)
+    if(start == None and end == None):
+        start = grid[0][0]
+        end = grid[(len(grid)) - 1][-1]
+    return __aStar(start, end, grid)
+
+def createMatrix(lines):
+    grid = []
+    y = 0
+    for line in lines:
+        line = line[:-1]
+        line = [int(x) for x in line]
+        temp = []
+        for x in range(len(line)):
+            n = Node()
+            n.x = x
+            n.y = y
+            n.walkable = (line[x] == 1)
+            temp += [n]
+        grid += [temp]
+        y += 1
+    return grid
 
 
-wayOut, moves = astar(start, end, grid)
-print "Exit found in:", moves, "moves"
-for el in path:
-    print (el.x, el.y),
+if __name__ == "__main__":
+
+    lines = []
+    f = open("grid4x4", 'rb')
+    lines = f.readlines()
+    f.close()
+
+    #grid = createMatrix(lines)
+
+    wayOut, moves = aStar(lines)
+    if (not wayOut):
+        print "NO WAY OUT MUHAHAHA u suck"
+        exit (1)
+    print "Exit found in:", moves, "moves"
+    for el in wayOut:
+        print (el.x, el.y),
 
