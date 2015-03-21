@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title_block %} - pick maze {% endblock %}
+
+{% block main_block %}
+    {% for maze in mazes %}
+        <li><a href="/mazeapp/solve/{{ maze.name }}">{{ maze.name }}</a></li>
+    {% endfor %}
+{% endblock %}

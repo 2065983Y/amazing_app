@@ -63,7 +63,7 @@ def __aStar(start, end, grid):
         current = min(open_set, key=attrgetter("f_score"))
         if current == end:
             path = r_path(dic, end)
-            return path, len(path)
+            return path
         open_set.remove(current)
         closed_set.add(current)
         #neigs = neigh_nodes(current, grid)
@@ -83,7 +83,7 @@ def __aStar(start, end, grid):
                 if a not in open_set:
                     open_set.add(a)
 
-    return None, 0
+    return None
 
 def aStar(grid, start=None, end=None):
     grid = createMatrix(grid)
@@ -119,11 +119,11 @@ if __name__ == "__main__":
 
     #grid = createMatrix(lines)
 
-    wayOut, moves = aStar(lines)
+    wayOut = aStar(lines)
     if (not wayOut):
         print "NO WAY OUT MUHAHAHA u suck"
         exit (1)
-    print "Exit found in:", moves, "moves"
+    print "Exit found in:", len(wayOut), "moves"
     for el in wayOut:
         print (el.x, el.y),
 
