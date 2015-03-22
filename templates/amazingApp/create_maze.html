@@ -6,13 +6,36 @@
     <link href="{% static 'css/grid.css' %}" rel="stylesheet">
 {% endblock%}
 
-{% block title %} - create maze {% endblock %}
-
+{% block title %}Create Maze  {% endblock %}
 {% block main_block %}
-    <p id="rows">10</p>
+    <div>
+    <h1>Create your maze</h1>
+    <!--<p id="rows">10</p>
     <p id="cols">10</p>
-    <p id="clicked"> 0 </p>
-    <input id="cells" type="hidden" name="cells" value="">
+    <p id="clicked"> 0 </p>-->
+    <!--<input id="cells" type="hidden" name="cells" value="">-->
+    <form role="form" method="post" action=".">
+         {% csrf_token %}
+    <div class="form-group">
+    <p class="required"><label for="id_name">Name:</label>
+        <input class="form-control" id="id_name" name="name" type="text" placeholder="Enter maze name" /></p>
+ </div>
+     <div class="form-group">
+    <p class="required"><label for="id_rows">Rows:</label>
+        <input class="form-control" id="id_rows" name="rows" type="int" placeholder="Enter number of rows" /></p>
+ </div>
+        <div class="form-group">
+    <p class="required"><label for="id_cols">Columns:</label>
+        <input class="form-control" id="id_cols" name="cols" type="int" placeholder="Enter number of columns" /></p>
+ </div>
+
+ <div class="form-group">
+        <input class="form-control" id="cells" name="cols" type="hidden" value="" />
+ </div>
+
+     <button type="submit" class="btn btn-dafault">Create Maze</button>
+        </form>
+        </div>
 {% endblock %}
 
 {% block js_libs %}
