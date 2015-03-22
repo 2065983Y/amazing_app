@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block css_libs %}
+    <link href="{% static 'css/grid.css' %}" rel="stylesheet">
+{% endblock%}
+
+{% block title %} - create maze {% endblock %}
+
+{% block main_block %}
+    <p id="rows">10</p>
+    <p id="cols">10</p>
+    <p id="clicked"> 0 </p>
+    <input id="cells" type="hidden" name="cells" value="">
+{% endblock %}
+
+{% block js_libs %}
+    <script src="{% static 'javascript/clickable-grid.js' %}" type="text/javascript"></script>
+{% endblock %}

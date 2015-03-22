@@ -22,7 +22,6 @@ def mazes(request):
 
     return HttpResponse(m.cells)
 
-@login_required
 def create_maze(request):
     if request.method == 'POST':
         form = CreateMazeForm(request.POST)
@@ -62,3 +61,6 @@ def solveMaze(request, maze_name):
         return redirect('/mazeapp/')
 
     return render(request, 'amazingApp/solve_maze.html', context_dic)
+
+def createMaze(request):
+    return render(request, 'amazingApp/create_maze.html', {})
