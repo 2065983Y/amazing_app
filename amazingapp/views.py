@@ -84,8 +84,8 @@ def solveMaze(request, maze_name):
         maze = Maze.objects.get(name=maze_name)
         context_dic["maze_cells"] = maze.cells
         context_dic["maze_name"] = maze.name
-        context_dic["rows"] = maze.rows
-        context_dic["cols"] = maze.cols
+        context_dic["maze_rows"] = maze.rows
+        context_dic["maze_cols"] = maze.cols
     except Maze.DoesNotExist:
         print "Maze does not exist"
         return redirect('/mazeapp/')

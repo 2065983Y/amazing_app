@@ -9,13 +9,13 @@ var grid = clickableGrid(document.getElementById("id_rows").value, document.getE
     //var cols = parseInt(document.getElementById("cols").innerHTML);
     console.log(document.getElementById("id_rows").value);
     console.log(document.getElementById("id_cols").value);
-    if(el.className=="clicked")
+    if(el.className=="wall")
     {
         el.className=" "
     }
     else
     {
-        el.className='clicked'
+        el.className='wall'
     }
     //if (lastClicked) lastClicked.className='';
     //lastClicked = el;
