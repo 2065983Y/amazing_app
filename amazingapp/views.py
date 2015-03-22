@@ -1,26 +1,49 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from amazingapp.algorithms.astar import aStar
-from amazingapp.models import Maze
+from amazingapp.models import Maze, UserProfile
 from amazingapp.forms import CreateMazeForm
 
 
 # Create your views here.
 
 def index(request):
-    
-    return render(request, 'base.html', {})
+    mules_list = UserProfile.objects.order_by('-mazes_created')[:5]
+    cats_list = UserProfile.objects.order_by('-mazes_solved')[:5]
+
+    context_dict = {'mules': mules_list, 'cats': cats_list}
+
+    response = render(request, 'index.html', context_dict)
+
+    return response
+
+
+def builders(request):
+    return render(request, 'index.html', {})
+
+
+def solvers(request):
+    return render(request, 'index.html', {})
+
 
 def mazes(request):
-    m = Maze.objects.get(name="Destroyer583")
-    #print m.cells
-    grid = m.getOrCreateGrid()
+    return render(request, 'index.html', {})
 
-    wayOut =  aStar(grid)
-    if(not wayOut):
-        return HttpResponse("NO WAY OUT u suck!")
 
-    return HttpResponse(m.cells)
+# def index(request):
+#    
+#    return render(request, 'base.html', {})
+
+#def mazes(request):
+#    m = Maze.objects.get(name="Destroyer583")
+#    #print m.cells
+#    grid = m.getOrCreateGrid()
+#
+#    wayOut =  aStar(grid)
+#    if(not wayOut):
+#        return HttpResponse("NO WAY OUT u suck!")
+#
+#    return HttpResponse(m.cells)
 
 def create_maze(request):
     if request.method == 'POST':
@@ -38,7 +61,7 @@ def create_maze(request):
             print form.errors
 
     else:
-        form=CreateMazeForm()
+        form = CreateMazeForm()
     return render(request, 'amazingapp/create_maze.html', context_dict)
 
 
@@ -47,6 +70,7 @@ def pickMaze(request):
     mazes = Maze.objects.all()
     context_dic["mazes"] = mazes
     return render(request, "amazingApp/pick_maze.html", context_dic)
+
 
 def solveMaze(request, maze_name):
     context_dic = {}
