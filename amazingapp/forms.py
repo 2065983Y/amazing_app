@@ -11,7 +11,7 @@ class CreateMazeForm(forms.ModelForm):
 
     class Meta:
         model = Maze
-        fields = ['name', 'rows', 'cols',]
+        fields = ['name', 'rows', 'cols', 'cells']
 
 
 

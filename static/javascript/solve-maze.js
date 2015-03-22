@@ -91,7 +91,15 @@ function displayCells(rows, cols, clicked)
 document.body.appendChild(grid);
 
 function drawMaze( rows, cols, callback ){
-    var cells = document.getElementById("cells").getAttribute("value");
+    var cellsUni = document.getElementById("cells").getAttribute("value");
+    var cells = "";
+    for(var c in cellsUni)
+    {
+        if(cellsUni[c] == 1 || cellsUni[c] == 0)
+        {
+            cells = cells.concat(cellsUni[c])
+        }
+    }
     var i=0;
     var grid = document.createElement('table');
     grid.className = 'grid';
