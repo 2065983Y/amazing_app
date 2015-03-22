@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block side_block %}
+			<p>Stubborn mules</p>
+              {% if users %}
+                    <ul class="list-group">
+                        {% for mule in mules %}
+                        <p>{{ mule.name }}</p>
+						<p>mazes created:{{ mule.mazes_created }}</p>
+						<p>unsolved:{{ mule.mazes_solved }}</p>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <strong>There are no users.</strong>
+                {% endif %}
+{% endblock %}
+
+{% block body_block %}
+		<div style="text-align: center; vertical-align:middle; position:relative; width: 100%; border-width: 1px 0 0 0; ">
+
+		<p><button class="btn btn-primary custom btn-lg" type="submit" name="submit">Log in</button>
+		<p><button class="btn btn-warning custom btn-lg" type="submit" name="submit">Register</button>
+		<p><button class="btn btn-danger custom btn-lg" type="submit" name="submit">Continue as guest </button>
+		
+		</div>
+{% endblock %}
+
+
+{% block right_block %}
+
+			<p>Curiosity cats</p>
+              {% if users %}
+                    <ul class="list-group">
+                        {% for cat in cats %}
+                        <p>{{ cat.name }}</p>
+						<p>mazes solved:{{ cat.mazes_solved }}</p>
+						<p>mules annoyed:{{ cat.mazes_created }}</p>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <strong>There are no users.</strong>
+                {% endif %}
+            </div>
+
+          </div>
+{% endblock %}
+
+
