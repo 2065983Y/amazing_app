@@ -13,21 +13,21 @@ def index(request):
 
     context_dict = {'mules': mules_list, 'cats': cats_list}
 
-    response = render(request, 'index.html', context_dict)
+    response = render(request, 'amazingapp/index.html', context_dict)
 
     return response
 
 
 def builders(request):
-    return render(request, 'index.html', {})
+    return render(request, 'amazingapp/index.html', {})
 
 
 def solvers(request):
-    return render(request, 'index.html', {})
+    return render(request, 'amazingapp/index.html', {})
 
 
 def mazes(request):
-    return render(request, 'index.html', {})
+    return render(request, 'amazingapp/index.html', {})
 
 
 # def index(request):
