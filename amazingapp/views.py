@@ -45,23 +45,30 @@ def mazes(request):
 #    return HttpResponse(m.cells)
 
 def create_maze(request):
-    if request.method == 'POST':
-        form = CreateMazeForm(request.POST)
-        # name = request.POST.get('name')
-        # rows = request.POST.get('rows')
-        # cols = request.POST.get('cols')
-        # cells = request.POST.get('cells')
+    if request.method == "POST":
+        data = request.POST
+        form = CreateMazeForm(data=request.POST)
+        #print form
+        #print request.POST
+        #print data["Rows"], data["Columns"], data["name"]
+        #form.rows = int(data["Rows"])
+        #form.cols = int(data["Columns"])
+        #form.name = data["name"]
+        ##form.save(commit=False)
+        #print type(form.rows), type(form.cols)
+
+        print "valid", form.is_valid()
         if form.is_valid():
-            context_dict = {'name': form.name, 'rows': form.rows, 'cols': form.cols, 'cells': form.cells}
-
-            form.save(commit=True)
-
+            form.save()
         else:
             print form.errors
 
     else:
         form = CreateMazeForm()
-    return render(request, 'amazingApp/create_maze.html', context_dict)
+    return render(request, "amazingApp/create_maze.html", {"form": form})
+
+
+
 
 
 def pickMaze(request):
