@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block side_block %}
+{% block left_block %}
 			<p>Stubborn mules</p>
               {% if users %}
                     <ul class="list-group">
@@ -15,14 +15,12 @@
                 {% endif %}
 {% endblock %}
 
-{% block body_block %}
-		<div style="text-align: center; vertical-align:middle; position:relative; width: 100%; border-width: 1px 0 0 0; ">
+{% block main_block %}
 
 		<p><button class="btn btn-primary custom btn-lg" type="submit" name="submit">Log in</button>
 		<p><button class="btn btn-warning custom btn-lg" type="submit" name="submit">Register</button>
 		<p><button class="btn btn-danger custom btn-lg" type="submit" name="submit">Continue as guest </button>
 		
-		</div>
 {% endblock %}
 
 
@@ -40,9 +38,6 @@
                 {% else %}
                     <strong>There are no users.</strong>
                 {% endif %}
-            </div>
-
-          </div>
 {% endblock %}
 
 
