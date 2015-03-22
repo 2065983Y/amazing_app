@@ -17,9 +17,9 @@
 
 {% block main_block %}
 
-		<p><button class="btn btn-primary custom btn-lg" type="submit" name="submit">Log in</button>
-		<p><button class="btn btn-warning custom btn-lg" type="submit" name="submit">Register</button>
-		<p><button class="btn btn-danger custom btn-lg" type="submit" name="submit">Continue as guest </button>
+		<p><a href="{% url 'auth_login' %}" class="btn btn-primary custom btn-lg" type="submit">Log in</a>
+		<p><a href="{% url 'registration_register' %}" class="btn btn-warning custom btn-lg" type="submit">Register</a>
+		<p><a href="{% url 'mazes'%}" class="btn profile-btn" type="submit" name="submit">Continue as guest </a>
 		
 {% endblock %}
 
