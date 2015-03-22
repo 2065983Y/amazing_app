@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 
 class Maze(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    solved_by = models.TextField()
     rows = models.IntegerField()
     cols = models.IntegerField()
     cells = models.TextField()
+    solved_by = models.TextField()
     attempts = models.IntegerField(default = 0)
 #    creator = models.ForeignKey(User)
     __grid = None

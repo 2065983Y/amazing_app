@@ -1,4 +1,5 @@
 var clicked = {};
+
 var grid = clickableGrid(document.getElementById("rows").innerHTML, document.getElementById("cols").innerHTML, function(el,row,col,i){
     //console.log("You clicked on element:",el);
     //console.log("You clicked on row:",row);
@@ -7,13 +8,13 @@ var grid = clickableGrid(document.getElementById("rows").innerHTML, document.get
     //el.className='clicked';
     var rows = parseInt(document.getElementById("rows").innerHTML);
     var cols = parseInt(document.getElementById("cols").innerHTML);
-    if(el.className=="clicked")
+    if(el.className=="wall")
     {
         el.className=" "
     }
     else
     {
-        el.className='clicked'
+        el.className='wall'
     }
     //if (lastClicked) lastClicked.className='';
     //lastClicked = el;
@@ -23,7 +24,6 @@ var grid = clickableGrid(document.getElementById("rows").innerHTML, document.get
     else
         clicked[square] = {"row": row, "col": col}
 
-    document.getElementById("clicked").innerHTML = Object.keys(clicked);
     document.getElementById("cells").setAttribute("value", displayCells(rows, cols, clicked));
 });
 

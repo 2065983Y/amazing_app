@@ -4,6 +4,10 @@
     width:30px; height:30px;
     border:1px solid #ccc;
 }
-.grid td.clicked {
-    background-color:purple;
+.grid td.wall {
+    background-color:black;
+}
+
+.grid td.path {
+    background-color:green;
 }
