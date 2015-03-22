@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from amazingapp.algorithms.astar import aStar
 from amazingapp.models import Maze, UserProfile
@@ -13,21 +12,21 @@ def index(request):
 
     context_dict = {'mules': mules_list, 'cats': cats_list}
 
-    response = render(request, 'amazingapp/index.html', context_dict)
+    response = render(request, 'amazingApp/index.html', context_dict)
 
     return response
 
 
 def builders(request):
-    return render(request, 'amazingapp/index.html', {})
+    return render(request, 'amazingApp/index.html', {})
 
 
 def solvers(request):
-    return render(request, 'amazingapp/index.html', {})
+    return render(request, 'amazingApp/index.html', {})
 
 
 def mazes(request):
-    return render(request, 'amazingapp/index.html', {})
+    return render(request, 'amazingApp/index.html', {})
 
 
 # def index(request):
@@ -62,7 +61,7 @@ def create_maze(request):
 
     else:
         form = CreateMazeForm()
-    return render(request, 'amazingapp/create_maze.html', context_dict)
+    return render(request, 'amazingApp/create_maze.html', context_dict)
 
 
 def pickMaze(request):
