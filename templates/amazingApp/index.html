@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block left_block %}
+			<p>Stubborn mules</p>
+                    <ul class="list-group">
+                        {% for mule in mules %}
+                        <p><strong>{{ mule }}</strong></p>
+						<p>mazes created:{{ mule.mazes_created }}</p>
+						<p>unsolved:{{ mule.mazes_solved }}</p>
+                        {% endfor %}
+                    </ul>
+{% endblock %}
+
+{% block main_block %}
+		<div style="text-align: center; vertical-align:middle; position:relative; width: 100%; border-width: 1px 0 0 0;" class=" col-md-4 " >
+		<p><a href="{% url 'auth_login' %}" class="btn btn-primary custom btn-lg" type="submit" >Log in</a></p>
+		<p><a href="{% url 'registration_register' %}" class="btn btn-warning custom btn-lg" type="submit" >Register</a></p>
+		<p><a href="{% url 'solve'%}"class="btn btn-danger custom btn-lg" type="submit" >Continue as guest </a></p>
+		</div>
+{% endblock %}
+
+
+{% block right_block %}
+			<p>Curiosity cats</p>
+                    <ul class="list-group">
+                        {% for cat in cats %}
+                        <p><strong>{{ cat }} </strong></p>
+						<p>mazes solved:{{ cat.mazes_solved }}</p>
+						<p>mules annoyed:{{ cat.mazes_created }}</p>
+                        {% endfor %}
+                    </ul>
+{% endblock %}
+
+

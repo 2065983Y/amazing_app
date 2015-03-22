@@ -16,7 +16,7 @@ class CreateMazeForm(forms.ModelForm):
 
     class Meta:
         model = Maze
-        fields = ['name', 'rows', 'cols',]
+        fields = ['name', 'rows', 'cols', 'cells']
 
 
 
@@ -29,11 +29,10 @@ class UserForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
     picture = forms.ImageField(help_text="Select a profile image to upload.", required=False)
-    website=forms.URLField(help_text="Enter website", required=False)
 
     class Meta:
         model = UserProfile
-        fields = ('picture','website')
+        fields = ('picture',)
 
     def clean_avatar(self):
         avatar = self.cleaned_data['avatar']

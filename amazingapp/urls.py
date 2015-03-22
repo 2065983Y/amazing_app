@@ -14,5 +14,5 @@ urlpatterns = patterns('',
     url(r'^password_change/done/$', views.password_change_done, name='password_change_done'),
     url(r'^add_profile/', views.register_profile, name='register_profile'),
     url(r'^profile/', views.profile, name='profile'),
-    url(r'^/create/$', views.create_maze, name='createMaze'),
+    url(r'^/create/$', views.create_maze, name='createMaze'),#
 )

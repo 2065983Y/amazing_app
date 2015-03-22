@@ -62,6 +62,7 @@ def create_maze(request):
     if request.method == "POST":
         data = request.POST
         form = CreateMazeForm(data=request.POST)
+        form.cells =  str(request.POST['cells'])
         #print form
         #print request.POST
         #print data["Rows"], data["Columns"], data["name"]
