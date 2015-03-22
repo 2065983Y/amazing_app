@@ -1,19 +1,21 @@
 var clicked = {};
-var grid = clickableGrid(document.getElementById("rows").innerHTML, document.getElementById("cols").innerHTML, function(el,row,col,i){
+var grid = clickableGrid(document.getElementById("id_rows").value, document.getElementById("id_cols").value, function(el,row,col,i){
     //console.log("You clicked on element:",el);
     //console.log("You clicked on row:",row);
     //console.log("You clicked on col:",col);
     //console.log("You clicked on item #:",i);
     //el.className='clicked';
-    var rows = parseInt(document.getElementById("rows").innerHTML);
-    var cols = parseInt(document.getElementById("cols").innerHTML);
-    if(el.className=="clicked")
+    //var rows = parseInt(document.getElementById("rows").innerHTML);
+    //var cols = parseInt(document.getElementById("cols").innerHTML);
+    console.log(document.getElementById("id_rows").value);
+    console.log(document.getElementById("id_cols").value);
+    if(el.className=="wall")
     {
         el.className=" "
     }
     else
     {
-        el.className='clicked'
+        el.className='wall'
     }
     //if (lastClicked) lastClicked.className='';
     //lastClicked = el;
@@ -23,7 +25,6 @@ var grid = clickableGrid(document.getElementById("rows").innerHTML, document.get
     else
         clicked[square] = {"row": row, "col": col}
 
-    document.getElementById("clicked").innerHTML = Object.keys(clicked);
     document.getElementById("cells").setAttribute("value", displayCells(rows, cols, clicked));
 });
 
@@ -31,7 +32,7 @@ function displayCells(rows, cols, clicked)
 {
     var cells = "";
     console.log("rows", rows);
-    console.log("cols", cols)
+    console.log("cols", cols);
     for(var r=0;r<rows;r++)
     {
         for(var c=0;c<cols;c++)
@@ -49,6 +50,7 @@ function displayCells(rows, cols, clicked)
             cells = cells.concat("0");
         }
     }
+    console.log(cells);
     return cells;
 }
 

@@ -10,12 +10,15 @@ from django.contrib.auth.models import User
 class CreateMazeForm(forms.ModelForm):
 
     name = forms.CharField(max_length=128, help_text="Name of your maze", required=True)
-    rows = forms. ChoiceField(choices=[x for x in range(3, 20)], help_text="rows", required=True)
-    cols = forms.ChoiceField(choices=[x for x in range(3, 20)], help_text="columns", required=True)
+    rows = forms.IntegerField(help_text="Rows", required=True)
+    cols = forms.IntegerField (help_text="Columns", required=True)
+    cells = forms.CharField(widget=forms.MultipleHiddenInput())
 
     class Meta:
         model = Maze
-        fields = ('name', 'rows', 'cols', 'cells')
+        fields = ['name', 'rows', 'cols',]
+
+
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
