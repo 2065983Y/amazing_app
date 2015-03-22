@@ -1,0 +1,37 @@
+﻿Merge branch 'master' of https://github.com/2065983Y/amazing_app
+
+Conflicts:
+	amazingapp/admin.py
+	templates/amazingApp/index.html
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 2 and 4 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   amazingapp/admin.py
+#	modified:   amazingapp/forms.py
+#	modified:   amazingapp/urls.py
+#	modified:   amazingapp/views.py
+#	new file:   bcqu1gpj.vyf.txt
+#	modified:   populate.py
+#	modified:   static/css/profile.css
+#	modified:   static/javascript/clickable-grid.js
+#	modified:   static/javascript/solve-maze.js
+#	new file:   static/logoDark.png
+#	modified:   templates/amazingApp/create_maze.html
+#	new file:   templates/amazingApp/index.html
+#	modified:   templates/profile.html
+#
+

@@ -19,7 +19,6 @@ class CreateMazeForm(forms.ModelForm):
         fields = ['name', 'rows', 'cols', 'cells']
 
 
-
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -120,6 +119,7 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model=User
         fields=('username','email')
+
 
     def clean(self):
         cleaned_data = self.cleaned_data
