@@ -120,7 +120,6 @@ class UserEditForm(forms.ModelForm):
         model=User
         fields=('username','email')
 
-
     def clean(self):
         cleaned_data = self.cleaned_data
         url = cleaned_data.get('url')
