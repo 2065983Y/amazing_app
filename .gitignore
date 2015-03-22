@@ -60,3 +60,6 @@ target/
 
 .idea
 media/
+
+amazingapp/algorithms/grid*
+amazingapp/migrations

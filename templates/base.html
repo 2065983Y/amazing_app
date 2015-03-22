@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>Amazing challenge {% block title %}{% endblock %}</title>
 
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="{% static 'css/custom.css' %}" rel="stylesheet"/>
@@ -51,11 +51,15 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-                {% block side_block %}<p>Here goes test on the left hand side</p>{% endblock %}
+                {% block left_block %}<p>Here goes test on the left hand side</p>{% endblock %}
         </div>
         <div class="col-sm-0 col-sm-offset-0 col-md-0 col-md-offset-0 main">
            <div>
+<<<<<<< HEAD
                 {% block body_block %}<p>abas</p> <p>Happy developing (:</p>{% endblock %}
+=======
+                {% block main_block %}<p>That is in the middle</p> <p>Happy developing (:</p>{% endblock %}
+>>>>>>> 08fa5a13ca0617e56cd77aa1f713ed90c307394a
             </div>
         </div>
 		 <div class="col-sm-3 col-md-2 right_sidebar">
