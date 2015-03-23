@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.urlresolvers import reverse
 from django.shortcuts import resolve_url
-from django.contrib.auth import  update_session_auth_hash
+from django.contrib.auth import  update_session_auth_hash, login
 from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.contrib.auth.views import password_change
@@ -57,7 +57,6 @@ def mazes(request):
 #        return HttpResponse("NO WAY OUT u suck!")
 #
 #    return HttpResponse(m.cells)
-
 def create_maze(request):
     if request.method == "POST":
         data = request.POST
@@ -116,7 +115,7 @@ def about(request):
     return render(request,'about.html',{})
 
 def my_password_change(request):
-        return password_change(template_name ='password_change_form.html')
+        return password_change(template_name = 'password_change_form.html')
 
 def password_change(request,
                     template_name='amazing_app/templates/registration/password_change_form.html',
