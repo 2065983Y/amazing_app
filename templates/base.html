@@ -39,14 +39,6 @@
 		  <li><a href="{% url 'builders' %}">Builders</a></li>
 		  <li><a href="{% url 'solvers' %}">Solvers</a></li>
 		  <li><a href="{% url 'mazes' %}">Mazes</a></li>
-          {% if user.is_authenticated %}
-                        <li><a href="{% url 'auth_logout' %}?next=/">Logout</a></li>
-                        <li><a href="{% url 'profile' %}">Profile</a></li>
-                        <li><a href="{% url 'password_change'%}" > Change Password</a></li>
-                    {% else %}
-                        <li><a href="{% url 'registration_register' %}">Register Here</a></li>
-                        <li><a href="{% url 'auth_login' %}">Login</a></li>
-                    {% endif %}
 
       </ul>
     </div>
@@ -62,7 +54,7 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
            <div>
-                {% block main_block %} {% endblock %}
+                {% block main_block %}<p>That is in the middle</p> <p>Happy developing (:</p> {% endblock %}
             </div>
         </div>
 		 <div class="col-sm-3 col-md-2 right_sidebar">

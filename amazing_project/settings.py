@@ -12,10 +12,9 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_PATH=os.path.join(BASE_DIR,'templates')
-TEMPLATE_DIRS = [TEMPLATE_PATH,]
+TEMPLATE_DIRS = [TEMPLATE_PATH]
 
 
-SITE_ID = 1
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -43,7 +42,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'amazingapp',
-    'registration'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -71,16 +69,6 @@ DATABASES = {
     }
 }
 
-# registration stuff
-REGISTRATION_OPEN = True
-ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = '/'  # The page you want users to arrive at after they successful log in
-LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
-PASSWORD_HASHERS = (
-'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
