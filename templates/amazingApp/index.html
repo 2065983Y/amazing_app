@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
+
+{% block css_libs%}
+    <link href="{% static 'css/index.css' %}" rel="stylesheet"/>
+{% endblock %}
+
 {% block left_block %}
 			<p>Stubborn mules</p>
               {% if users %}
@@ -16,10 +22,10 @@
 {% endblock %}
 
 {% block main_block %}
-		<div style="text-align: center; vertical-align:middle; position:relative; width: 100%; border-width: 1px 0 0 0; class="col-md-4">
-		<p><button class="btn btn-primary custom btn-lg" type="submit" name="submit">Log in</button></p>
-		<p><button class="btn btn-warning custom btn-lg" type="submit" name="submit">Register</button></p>
-		<p><button class="btn btn-danger custom btn-lg" type="submit" name="submit">Continue as guest </button></p>
+		<div class="button_block">
+		<p><button class="btn btn-primary btn-block" type="submit" name="submit">Log in</button></p>
+		<p><button class="btn btn-warning btn-block" type="submit" name="submit">Register</button></p>
+		<p><button class="btn btn-danger btn-block" type="submit" name="submit">Continue as guest </button></p>
 		</div>
 {% endblock %}
 
