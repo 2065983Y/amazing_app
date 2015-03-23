@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from amazingapp.algorithms.astar import aStar
 
@@ -51,6 +52,7 @@ def mazes(request):
 #
 #    return HttpResponse(m.cells)
 
+@login_required
 def create_maze(request):
     context_dict = {}
     if request.method == "POST":
@@ -72,9 +74,11 @@ def create_maze(request):
 
             #print form.is_valid(grid)
             if form.is_valid(grid):
+                maze.creator = request.user.username
+                print "USER currently HAZ", request.user.mazes_created
                 form.save(commit=True)
             else:
-                if(not form.systemPath):
+                if not form.systemPath:
                     form._errors["unsolvable"] = [u'Maze does not have a path, custom start & end coming soon']
                     context_dict["unsolvable"] = 'Maze does not have a path, custom start & end coming soon'
                 print form.errors
@@ -110,6 +114,7 @@ def solveMaze(request, maze_name):
 def about(request):
     return render(request, 'amazingApp/about.html', {})
 
+
 def register(request):
     registered = False
     if request.method == 'POST':
@@ -140,6 +145,8 @@ def register(request):
     return render(request, 'amazingApp/register.html',
                   {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
 
+
+@login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/mazeapp/')
@@ -165,17 +172,18 @@ def user_login(request):
     else:
         return render(request, 'amazingApp/login.html', {})
 
+
+
 def register_profile(request):
+
     if request.method == 'POST':
         profile_form = UserProfileForm(data=request.POST)
-
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
+            profile.email = "a@a.com"
             profile.user = request.user
-
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
-
             profile.save()
             return redirect("/mazeapp/")
         else:
@@ -184,6 +192,8 @@ def register_profile(request):
         profile_form = UserProfileForm()
     return render(request, "amazingApp/profile_registration.html", {'profile_form': profile_form})
 
+
+@login_required
 def edit_profile(request):
     context_dict = {}
     if request.method == 'POST':
@@ -205,6 +215,7 @@ def edit_profile(request):
         user_form = UserEditForm(instance=request.user)
         profile_form = UserProfileForm(instance=request.user.userprofile)
 
+    print "6"
     context_dict['user_form'] = user_form
     context_dict['profile_form'] = profile_form
     context_dict['picture'] = request.user.userprofile.picture

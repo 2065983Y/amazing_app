@@ -24,17 +24,31 @@
 {% endblock %}
 
 {% block main_block %}
+        {% if user.is_authenticated %}
+            <p>Hello, {{ user.username }}</p>
+        {% endif %}
 		<div class="button_block">
 
-            <a href="{% url 'auth_login' %}">
-                <p><button class="btn btn-primary btn-block" type="submit" name="submit">Log in</button></p>
-            </a>
-            <a href="{% url 'registration_register' %}">
-                <p><button class="btn btn-warning btn-block" type="submit" name="submit">Register</button></p>
-            </a>
-            <a href="{% url 'mazePicker' %}">
-                <p><button class="btn btn-danger btn-block" type="submit" name="submit">Continue as guest </button></p>
-            </a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'mazePicker' %}">
+                <p><button class="btn btn-primary btn-block" type="submit" name="submit">Solve</button></p>
+                </a>
+
+                <a href="{% url 'createMaze' %}">
+                    <p><button class="btn btn-danger btn-block" type="submit" name="submit">Create</button></p>
+                </a>
+
+            {% else %}
+                <a href="{% url 'auth_login' %}">
+                    <p><button class="btn btn-primary btn-block" type="submit" name="submit">Log in</button></p>
+                </a>
+                <a href="{% url 'registration_register' %}">
+                    <p><button class="btn btn-warning btn-block" type="submit" name="submit">Register</button></p>
+                </a>
+                <a href="{% url 'mazePicker' %}">
+                    <p><button class="btn btn-danger btn-block" type="submit" name="submit">Continue as guest</button></p>
+                </a>
+            {% endif %}
 		</div>
 {% endblock %}
 

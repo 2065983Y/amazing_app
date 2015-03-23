@@ -19,7 +19,6 @@ class Maze(models.Model):
             return self.__grid
 
         self.cells = [str(x) for x in self.cells if x == "1" or x == "0"] # remove peski unicode
-        print self.rows, self.cols
         grid = []
         index = 0
         for i in xrange(self.rows):
@@ -28,7 +27,6 @@ class Maze(models.Model):
                 row += self.cells[index]
                 index += 1
             grid += [row]
-        print "WORK", grid
         self.__grid = grid
         return grid
 
