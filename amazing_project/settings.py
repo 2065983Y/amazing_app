@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'amazingapp',
+    'registration'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,6 +74,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
+LOGIN_URL = '/accounts/login/'
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -82,6 +84,12 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+REGISTRATION_OPEN=True
+ACCOUNT_ACTIVATION_DAYS=0
+REGISTRATION_AUTO_LOGIN=True
+LOGIN_REDIRECT_URL='/mazeapp/'
+LOGIN_URL='/accounts/login/'
 
 
 # Static files (CSS, JavaScript, Images)

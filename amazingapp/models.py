@@ -30,3 +30,13 @@ class Maze(models.Model):
         self.__grid = grid
         return grid
 
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+    mazes_created = models.IntegerField(default=0)
+    mazes_solved=models.IntegerField(default=0)
+
+    def __unicode__(self):
+        return self.user.username
+
