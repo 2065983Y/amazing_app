@@ -1,4 +1,5 @@
 from django.contrib import admin
+from amazingapp.models import Maze, UserProfile
 
 
 # Register your models here.
@@ -10,5 +11,5 @@ class MazeAdmin(admin.ModelAdmin):
 # Register your models here.
 
 admin.site.register(Maze)
-
+admin.site.register(UserProfile)
 
