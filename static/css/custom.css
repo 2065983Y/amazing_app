@@ -1,6 +1,12 @@
 body {
     padding-bottom: 40px;
     padding-top: 60px;
+
+}
+
+body::after{
+    background-image:url('/static/Maze_Final.jpg');
+    opacity:0.5;
 }
 
 h3{
