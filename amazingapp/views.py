@@ -51,9 +51,12 @@ def mazes(request):
 #    return HttpResponse(m.cells)
 
 def create_maze(request):
+    context_dict = {}
     if request.method == "POST":
         data = request.POST
         form = CreateMazeForm(data=request.POST)
+        try:
+            maze = form.save(commit=False)
         #form.cells =  str(request.POST['cells'])
         #print form
         #print request.POST
@@ -64,15 +67,22 @@ def create_maze(request):
         ##form.save(commit=False)
         #print type(form.rows), type(form.cols)
 
-        print "valid", form.is_valid()
-        if form.is_valid():
-            form.save()
-        else:
-            print form.errors
+            grid = maze.getOrCreateGrid()
 
+            #print form.is_valid(grid)
+            if form.is_valid(grid):
+                form.save(commit=True)
+            else:
+                if(not form.systemPath):
+                    form._errors["unsolvable"] = [u'Maze does not have a path, custom start & end coming soon']
+                    context_dict["unsolvable"] = 'Maze does not have a path, custom start & end coming soon'
+                print form.errors
+        except:
+            pass
     else:
         form = CreateMazeForm()
-    return render(request, "amazingApp/create_maze.html", {"form": form})
+    context_dict["form"] = form
+    return render(request, "amazingApp/create_maze.html", context_dict)
 
 
 def pickMaze(request):

@@ -13,12 +13,13 @@ class Maze(models.Model):
 #    creator = models.ForeignKey(User)
     __grid = None
 
-    def __unicode__(self):
-        return self.name
 
     def getOrCreateGrid(self):
         if(self.__grid):
             return self.__grid
+
+        self.cells = [str(x) for x in self.cells if x == "1" or x == "0"] # remove peski unicode
+        print self.rows, self.cols
         grid = []
         index = 0
         for i in xrange(self.rows):
@@ -27,8 +28,14 @@ class Maze(models.Model):
                 row += self.cells[index]
                 index += 1
             grid += [row]
+        print "WORK", grid
         self.__grid = grid
         return grid
+
+
+    def __unicode__(self):
+        return self.name
+
 
 
 class UserProfile(models.Model):

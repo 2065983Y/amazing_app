@@ -10,7 +10,9 @@
 {% block main_block %}
     <div>
     <h1>Create your maze</h1>
-
+    {% if unsolvable %}
+            <h2> {{ unsolvable }} </h2>
+        {% endif %}
     <!--<p id="rows">10</p>
     <p id="cols">10</p>
     <p id="clicked"> 0 </p>-->

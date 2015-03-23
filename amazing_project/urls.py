@@ -16,7 +16,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^mazeapp/S', include("amazingapp.urls")),
+    url(r'^mazeapp/', include("amazingapp.urls")),
     url(r'^$', views.index),
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
-    (r'^accounts/',include('registration.backends.simple.urls')),)
+    (r'^accounts/',include('registration.backends.simple.urls')),
+)
