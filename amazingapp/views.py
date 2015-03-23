@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from amazingapp.algorithms.astar import aStar
 
 from amazingapp.forms import CreateMazeForm
-from amazingapp.models import Maze, UserProfile
+from amazingapp.models import Maze
 from django.shortcuts import redirect
 
 
@@ -13,16 +13,16 @@ from django.shortcuts import redirect
 def index(request):
     total_mazes = 0
     unsolved = {}
-    all_userprofiles = UserProfile.objects.all()
-    mules_list = UserProfile.objects.order_by('-mazes_created')[:5]
-    cats_list = UserProfile.objects.order_by('-mazes_solved')[:5]
-    for profile in all_userprofiles:
-        print profile
-        total_mazes += profile.mazes_created
-    for profile in all_userprofiles:
-        unsolved[profile] = total_mazes - profile.mazes_solved
-    context_dict = {'mules': mules_list, 'cats': cats_list, 'unsolved': unsolved}
-    response = render(request, 'amazingApp/index.html', context_dict)
+    #all_userprofiles = UserProfile.objects.all()
+    #mules_list = UserProfile.objects.order_by('-mazes_created')[:5]
+    #cats_list = UserProfile.objects.order_by('-mazes_solved')[:5]
+    #for profile in all_userprofiles:
+    #    print profile
+    #    total_mazes += profile.mazes_created
+    #for profile in all_userprofiles:
+    #    unsolved[profile] = total_mazes - profile.mazes_solved
+    #context_dict = {'mules': mules_list, 'cats': cats_list, 'unsolved': unsolved}
+    response = render(request, 'amazingApp/index.html', {})
     return response
 
 
@@ -37,10 +37,6 @@ def mazes(request):
     return render(request, 'amazingApp/index.html', {})
 
 
-# def index(request):
-#
-#    return render(request, 'base.html', {})
-
 #def mazes(request):
 #    m = Maze.objects.get(name="Destroyer583")
 #    #print m.cells
@@ -51,6 +47,7 @@ def mazes(request):
 #        return HttpResponse("NO WAY OUT u suck!")
 #
 #    return HttpResponse(m.cells)
+
 def create_maze(request):
     if request.method == "POST":
         data = request.POST
