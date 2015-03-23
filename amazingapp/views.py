@@ -21,14 +21,19 @@ from django.contrib.auth.views import password_change
 # Create your views here.
 
 def index(request):
-    mules_list = UserProfile.objects.order_by('-mazes_created')[:5]
-    cats_list = UserProfile.objects.order_by('-mazes_solved')[:5]
-
-    context_dict = {'mules': mules_list, 'cats': cats_list}
-
-    response = render(request, 'amazingApp/index.html', context_dict)
-
-    return response
+	total_mazes = 0
+	unsolved = {}
+	all_userprofiles = UserProfile.objects.all()
+	mules_list = UserProfile.objects.order_by('-mazes_created')[:5]
+	cats_list = UserProfile.objects.order_by('-mazes_solved')[:5]
+	for profile in all_userprofiles:
+		print profile
+		total_mazes += profile.mazes_created
+	for profile in all_userprofiles:
+		unsolved[profile] = total_mazes - profile.mazes_solved
+	context_dict = {'mules': mules_list, 'cats': cats_list, 'unsolved': unsolved}
+	response = render(request, 'amazingApp/index.html', context_dict)
+	return response
 
 
 def builders(request):

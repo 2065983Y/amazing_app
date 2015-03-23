@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load staticfiles %}
+{% load rango_extras %}
 
 {% block css_libs%}
     <link href="{% static 'css/index.css' %}" rel="stylesheet"/>
@@ -18,7 +19,8 @@
 		</div>	 
 		<div class="panel-body">
 			<p>mazes created:{{ mule.mazes_created }}</p>
-			<p>unsolved:{{ mule.mazes_solved }}</p>
+			
+			<p>unsolved:{{ unsolved|get_item:mule }}</p>
 		</div>
 	</div>
     {% endfor %}
