@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
+
 def index(request):
     total_mazes = 0
     unsolved = {}
@@ -106,13 +107,8 @@ def solveMaze(request, maze_name):
 
     return render(request, 'amazingApp/solve_maze.html', context_dic)
 
-
-def createMaze(request):
-    return render(request, 'amazingApp/create_maze.html', {})
-
-
 def about(request):
-    return render(request, 'about.html', {})
+    return render(request, 'amazingApp/about.html', {})
 
 def register(request):
     registered = False
@@ -181,7 +177,7 @@ def register_profile(request):
                 profile.picture = request.FILES['picture']
 
             profile.save()
-            return redirect("/mazeapp")
+            return redirect("/mazeapp/")
         else:
             print profile_form.errors
     else:

@@ -7,8 +7,8 @@ from amazingapp.algorithms.astar import aStar
 class CreateMazeForm(forms.ModelForm):
 
     name = forms.CharField(max_length=128, help_text="Name of your maze", required=True)
-    rows = forms.ChoiceField(choices=[(int(x),x) for x in range(3, 21)], help_text="Rows", required=True)
-    cols = forms.ChoiceField(choices=[(int(x),x) for x in range(3, 21)], help_text="Columns", required=True)
+    rows = forms.ChoiceField(choices=[(int(x), x) for x in range(3, 21)], help_text="Rows", required=True)
+    cols = forms.ChoiceField(choices=[(int(x), x) for x in range(3, 21)], help_text="Columns", required=True)
     cells = forms.CharField(widget=forms.MultipleHiddenInput())
 
     __grid = None
