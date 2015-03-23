@@ -25,9 +25,15 @@
 
 {% block main_block %}
 		<div class="button_block">
-            <p><button class="btn btn-primary btn-block" type="submit" name="submit">Log in</button></p>
-            <p><button class="btn btn-warning btn-block" type="submit" name="submit">Register</button></p>
-            <p><button class="btn btn-danger btn-block" type="submit" name="submit">Continue as guest </button></p>
+            <a href="{% url 'auth_login' %}">
+                <p><button class="btn btn-primary btn-block" type="submit" name="submit">Log in</button></p>
+            </a>
+            <a href="{% url 'registration_register' %}">
+                <p><button class="btn btn-warning btn-block" type="submit" name="submit">Register</button></p>
+            </a>
+            <a href="{% url 'mazePicker' %}">
+                <p><button class="btn btn-danger btn-block" type="submit" name="submit">Continue as guest </button></p>
+            </a>
 		</div>
 {% endblock %}
 
