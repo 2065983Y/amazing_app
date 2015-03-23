@@ -206,4 +206,3 @@ def edit_profile(request):
     context_dict['profile_form'] = profile_form
     context_dict['picture'] = request.user.userprofile.picture
     return render(request, "amazingApp/profile.html", context_dict)
-

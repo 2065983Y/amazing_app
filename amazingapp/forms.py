@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from amazingapp.models import Maze, UserProfile
+
 class CreateMazeForm(forms.ModelForm):
 
     name = forms.CharField(max_length=128, help_text="Name of your maze", required=True)
@@ -18,17 +19,17 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model=User
-        fields=('username','email', 'password')
+        fields=('username', 'email', 'password')
 
 
 class UserProfileForm(forms.ModelForm):
-    picture=forms.ImageField(help_text="Choose a profile image ", required=False)
+    picture = forms.ImageField(help_text="Choose a profile image ", required=False)
     class Meta:
         model = UserProfile
         fields = ('picture',)
 
 class UserEditForm(forms.ModelForm):
     class Meta:
-        model=User
-        fields=('username','email')
+        model = User
+        fields = ('username', 'email')
 
