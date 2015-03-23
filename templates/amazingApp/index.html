@@ -7,14 +7,22 @@
 {% endblock %}
 
 {% block left_block %}
-			<p>Stubborn mules</p>
-                    <ul class="list-group">
-                        {% for mule in mules %}
-                            <p><strong>{{ mule }}</strong></p>
-                            <p>mazes created:{{ mule.mazes_created }}</p>
-                            <p>unsolved:{{ mule.mazes_solved }}</p>
-                        {% endfor %}
-                    </ul>
+
+<div class="panel panel-default">
+	<div class="panel-heading"><h3 class="panel-title">Stubborn mules</h3>
+	</div>
+</div>
+    {% for mule in mules %}
+    <div class="panel panel-default">
+		<div class="panel-heading"><h3 class="panel-title">{{ mule }}</h3>
+		</div>	 
+		<div class="panel-body">
+			<p>mazes created:{{ mule.mazes_created }}</p>
+			<p>unsolved:{{ mule.mazes_solved }}</p>
+		</div>
+	</div>
+    {% endfor %}
+</div>
 {% endblock %}
 
 {% block main_block %}
@@ -27,14 +35,21 @@
 
 
 {% block right_block %}
-			<p>Curiosity cats</p>
-                    <ul class="list-group">
-                        {% for cat in cats %}
-                            <p><strong>{{ cat }} </strong></p>
-                            <p>mazes solved:{{ cat.mazes_solved }}</p>
-                            <p>mules annoyed:{{ cat.mazes_created }}</p>
-                        {% endfor %}
-                    </ul>
+<div class="panel panel-default">
+	<div class="panel-heading"><h3 class="panel-title">Curiosity cats</h3>
+	</div>
+</div>
+    {% for cat in cats %}
+	<div class="panel panel-default">
+		<div class="panel-heading"><h3 class="panel-title">{{ cat }}</h3>
+		 </div>
+		<div class="panel-body">
+		<p>mazes solved:{{ cat.mazes_solved }}</p>
+		<p>mules annoyed:{{ cat.mazes_created }}</p>
+		</div>
+	 </div>
+    {% endfor %}
+</div>
 {% endblock %}
 
 
