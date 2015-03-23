@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block block_title %}- solving maze - {{ maze_name }} {% endblock %}
+
+
+{% block main_block %}
+
+    <p> Maze - {{ maze_name }} created successfully  </p>
+    <a href="{% url 'index' %}"> Go home now to celebrate</a>
+
+{% endblock %}
+
+
+{% block js_libs %}
+    <script src="{% static 'javascript/solve-maze.js' %}" type="text/javascript"></script>
+{% endblock %}

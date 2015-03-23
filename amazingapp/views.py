@@ -26,21 +26,21 @@ def index(request):
 
     context_dict = {'mules': mules_list, 'cats': cats_list}
 
-    response = render(request, 'index.html', context_dict)
+    response = render(request, 'amazingApp/index.html', context_dict)
 
     return response
 
 
 def builders(request):
-    return render(request, 'index.html', {})
+    return render(request, 'amazingApp/index.html', {})
 
 
 def solvers(request):
-    return render(request, 'index.html', {})
+    return render(request, 'amazingApp/index.html', {})
 
 
 def mazes(request):
-    return render(request, 'index.html', {})
+    return render(request, 'amazingApp/index.html', {})
 
 
 # def index(request):
@@ -61,7 +61,7 @@ def create_maze(request):
     if request.method == "POST":
         data = request.POST
         form = CreateMazeForm(data=request.POST)
-        form.cells =  str(request.POST['cells'])
+        #form.cells =  str(request.POST['cells'])
         #print form
         #print request.POST
         #print data["Rows"], data["Columns"], data["name"]
