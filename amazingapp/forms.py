@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from amazingapp.models import Maze, UserProfile
+from amazingapp.algorithms.astar import aStar
+
 
 class CreateMazeForm(forms.ModelForm):
 
@@ -8,6 +10,15 @@ class CreateMazeForm(forms.ModelForm):
     rows = forms.ChoiceField(choices=[(int(x),x) for x in range(3, 21)], help_text="Rows", required=True)
     cols = forms.ChoiceField(choices=[(int(x),x) for x in range(3, 21)], help_text="Columns", required=True)
     cells = forms.CharField(widget=forms.MultipleHiddenInput())
+
+    __grid = None
+    bestPath = None
+    systemPath = None
+
+    def is_valid(self, grid):
+        self.systemPath = aStar(grid)
+        #print "Astar result", aStar(grid)
+        return len(self.systemPath) != 0
 
     class Meta:
         model = Maze
@@ -27,6 +38,7 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('picture',)
+
 
 class UserEditForm(forms.ModelForm):
     class Meta:

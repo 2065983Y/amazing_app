@@ -83,7 +83,7 @@ def __aStar(start, end, grid):
                 if a not in open_set:
                     open_set.add(a)
 
-    return None
+    return [] # no path was found from start to end
 
 def aStar(grid, start=None, end=None):
     grid = createMatrix(grid)

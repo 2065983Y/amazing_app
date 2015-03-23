@@ -15,16 +15,16 @@ from django.contrib.auth import authenticate, login
 def index(request):
     total_mazes = 0
     unsolved = {}
-    all_userprofiles = UserProfile.objects.all()
-    mules_list = UserProfile.objects.order_by('-mazes_created')[:5]
-    cats_list = UserProfile.objects.order_by('-mazes_solved')[:5]
-    for profile in all_userprofiles:
-        print profile
-        total_mazes += profile.mazes_created
-    for profile in all_userprofiles:
-        unsolved[profile] = total_mazes - profile.mazes_solved
-    context_dict = {'mules': mules_list, 'cats': cats_list, 'unsolved': unsolved}
-    response = render(request, 'amazingApp/index.html', context_dict)
+    #all_userprofiles = UserProfile.objects.all()
+    #mules_list = UserProfile.objects.order_by('-mazes_created')[:5]
+    #cats_list = UserProfile.objects.order_by('-mazes_solved')[:5]
+    #for profile in all_userprofiles:
+    #    print profile
+    #    total_mazes += profile.mazes_created
+    #for profile in all_userprofiles:
+    #    unsolved[profile] = total_mazes - profile.mazes_solved
+    #context_dict = {'mules': mules_list, 'cats': cats_list, 'unsolved': unsolved}
+    response = render(request, 'amazingApp/index.html', {})
     return response
 
 
@@ -39,10 +39,6 @@ def mazes(request):
     return render(request, 'amazingApp/index.html', {})
 
 
-# def index(request):
-#
-#    return render(request, 'base.html', {})
-
 #def mazes(request):
 #    m = Maze.objects.get(name="Destroyer583")
 #    #print m.cells
@@ -53,10 +49,14 @@ def mazes(request):
 #        return HttpResponse("NO WAY OUT u suck!")
 #
 #    return HttpResponse(m.cells)
+
 def create_maze(request):
+    context_dict = {}
     if request.method == "POST":
         data = request.POST
         form = CreateMazeForm(data=request.POST)
+        try:
+            maze = form.save(commit=False)
         #form.cells =  str(request.POST['cells'])
         #print form
         #print request.POST
@@ -67,15 +67,22 @@ def create_maze(request):
         ##form.save(commit=False)
         #print type(form.rows), type(form.cols)
 
-        print "valid", form.is_valid()
-        if form.is_valid():
-            form.save()
-        else:
-            print form.errors
+            grid = maze.getOrCreateGrid()
 
+            #print form.is_valid(grid)
+            if form.is_valid(grid):
+                form.save(commit=True)
+            else:
+                if(not form.systemPath):
+                    form._errors["unsolvable"] = [u'Maze does not have a path, custom start & end coming soon']
+                    context_dict["unsolvable"] = 'Maze does not have a path, custom start & end coming soon'
+                print form.errors
+        except:
+            pass
     else:
         form = CreateMazeForm()
-    return render(request, "amazingApp/create_maze.html", {"form": form})
+    context_dict["form"] = form
+    return render(request, "amazingApp/create_maze.html", context_dict)
 
 
 def pickMaze(request):
