@@ -58,32 +58,34 @@ def create_maze(request):
     if request.method == "POST":
         data = request.POST
         form = CreateMazeForm(data=request.POST)
-        try:
-            maze = form.save(commit=False)
-        #form.cells =  str(request.POST['cells'])
-        #print form
-        #print request.POST
-        #print data["Rows"], data["Columns"], data["name"]
-        #form.rows = int(data["Rows"])
-        #form.cols = int(data["Columns"])
-        #form.name = data["name"]
-        ##form.save(commit=False)
-        #print type(form.rows), type(form.cols)
+        #try:
+        maze = form.save(commit=False)
+    #form.cells =  str(request.POST['cells'])
+    #print form
+    #print request.POST
+    #print data["Rows"], data["Columns"], data["name"]
+    #form.rows = int(data["Rows"])
+    #form.cols = int(data["Columns"])
+    #form.name = data["name"]
+    ##form.save(commit=False)
+    #print type(form.rows), type(form.cols)
 
-            grid = maze.getOrCreateGrid()
+        grid = maze.getOrCreateGrid()
 
-            #print form.is_valid(grid)
-            if form.is_valid(grid):
-                maze.creator = request.user.username
-                print "USER currently HAZ", request.user.mazes_created
-                form.save(commit=True)
-            else:
-                if not form.systemPath:
-                    form._errors["unsolvable"] = [u'Maze does not have a path, custom start & end coming soon']
-                    context_dict["unsolvable"] = 'Maze does not have a path, custom start & end coming soon'
-                print form.errors
-        except:
-            pass
+        print form.is_valid(grid)
+        if form.is_valid(grid):
+            maze.creator = request.user
+            builder = UserProfile.objects.get(user=request.user)
+            builder.mazes_created += 1
+            builder.save()
+            form.save(commit=True)
+        else:
+            if not form.systemPath:
+                form._errors["unsolvable"] = [u'Maze does not have a path, custom start & end coming soon']
+                context_dict["unsolvable"] = 'Maze does not have a path, custom start & end coming soon'
+            print form.errors
+        #except:
+        #    pass
     else:
         form = CreateMazeForm()
     context_dict["form"] = form
@@ -98,16 +100,31 @@ def pickMaze(request):
 
 
 def solveMaze(request, maze_name):
-    context_dic = {}
-    try:
+    if request.method == "POST":
+        print request.POST
         maze = Maze.objects.get(name=maze_name)
-        context_dic["maze_cells"] = maze.cells
-        context_dic["maze_name"] = maze.name
-        context_dic["maze_rows"] = maze.rows
-        context_dic["maze_cols"] = maze.cols
-    except Maze.DoesNotExist:
-        print "Maze does not exist"
-        return redirect('/mazeapp/')
+        print "USER", request.user, "solved by:", maze.solved_by
+        if not maze.solved_by:
+            maze.solved_by = request.user
+        elif request.user not in maze.solved_by.objects:
+            maze.solved_by.add(request.user)
+            solver = UserProfile.objects.get(user=request.user)
+            solver.mazes_solved += 1
+            solver.save()
+        maze.save()
+    else:
+        context_dic = {}
+        try:
+            maze = Maze.objects.get(name=maze_name)
+            maze.attempts += 1
+            context_dic["maze_cells"] = maze.cells
+            context_dic["maze_name"] = maze.name
+            context_dic["maze_rows"] = maze.rows
+            context_dic["maze_cols"] = maze.cols
+            maze.save()
+        except Maze.DoesNotExist:
+            print "Maze does not exist"
+            return redirect('/mazeapp/')
 
     return render(request, 'amazingApp/solve_maze.html', context_dic)
 

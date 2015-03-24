@@ -55,6 +55,8 @@ var grid = drawMaze(document.getElementById("rows").getAttribute("value"), docum
     if(row == rows - 1 && col == cols - 1)
     {
         alert("nailed it!");
+        var form = document.getElementById("checkMaze");
+        form.submit();
     }
 //    if(square in path)
 //       delete path[square];
@@ -97,9 +99,10 @@ function drawMaze( rows, cols, callback ){
     {
         if(cellsUni[c] == 1 || cellsUni[c] == 0)
         {
-            cells = cells.concat(cellsUni[c])
+            cells = cells.concat(cellsUni[c]);
         }
     }
+    console.log(cells);
     var i=0;
     var grid = document.createElement('table');
     grid.className = 'grid';
@@ -109,7 +112,7 @@ function drawMaze( rows, cols, callback ){
             var cell = tr.appendChild(document.createElement('td'));
             if(cells[r*rows + c]==0)
             {
-                cell.className="wall"
+                cell.className="wall";
             }
             cell.addEventListener('click',(function(el,r,c,i){
                 return function(){
@@ -124,4 +127,20 @@ function drawMaze( rows, cols, callback ){
     path["00"] = { "row":0, "col":0 };
 
     return grid;
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }

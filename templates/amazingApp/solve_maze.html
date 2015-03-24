@@ -16,6 +16,10 @@
     <cols id="cols" value="{{ maze_cols }}"></cols>
     <cells id="cells" value="{{ maze_cells }}"></cells>
 
+<form id="checkMaze" role="form" method="post" action=".">
+        {% csrf_token %}
+</form>
+
 {% endblock %}
 
 

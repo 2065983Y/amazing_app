@@ -22,6 +22,7 @@ function displayCells(rows, cols, clicked)
             cells = cells.concat("1");
         }
     }
+    console.log("cells", cells);
     return cells;
 }
 

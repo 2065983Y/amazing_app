@@ -8,9 +8,9 @@ class Maze(models.Model):
     rows = models.IntegerField()
     cols = models.IntegerField()
     cells = models.TextField()
-    solved_by = models.TextField()
+    solved_by = models.ForeignKey(User, related_name="Solved by", null=True)
     attempts = models.IntegerField(default = 0)
-#    creator = models.ForeignKey(User)
+    creator = models.ForeignKey(User, related_name="Built by")
     __grid = None
 
 
@@ -18,13 +18,13 @@ class Maze(models.Model):
         if(self.__grid):
             return self.__grid
 
-        self.cells = [str(x) for x in self.cells if x == "1" or x == "0"] # remove peski unicode
+        cells = [str(x) for x in self.cells if x == "1" or x == "0"] # remove peski unicode
         grid = []
         index = 0
         for i in xrange(self.rows):
             row = []
             for j in xrange(self.cols):
-                row += self.cells[index]
+                row += cells[index]
                 index += 1
             grid += [row]
         self.__grid = grid
