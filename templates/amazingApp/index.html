@@ -7,20 +7,20 @@
 {% endblock %}
 
 {% block left_block %}
-
-<div class="panel panel-default">
-	<div class="panel-heading"><h3 class="panel-title">Stubborn mules</h3>
-	</div>
-</div>
-    {% for mule in mules %}
     <div class="panel panel-default">
-		<div class="panel-heading"><h3 class="panel-title">{{ mule }}</h3>
-		</div>	 
-		<div class="panel-body">
-		</div>
-	</div>
-    {% endfor %}
-</div>
+        <div class="panel-heading"><h3 class="panel-title">Stubborn mules</h3>
+    </div>
+
+    </div>
+        {% for mule in mules %}
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">{{ mule }}</h3>
+            </div>
+            <div class="panel-body">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block main_block %}
@@ -31,7 +31,7 @@
 
             {% if user.is_authenticated %}
                 <a href="{% url 'mazePicker' %}">
-                <p><button class="btn btn-primary btn-block" type="submit" name="submit">Solve</button></p>
+                    <p><button class="btn btn-primary btn-block" type="submit" name="submit">Solve</button></p>
                 </a>
 
                 <a href="{% url 'createMaze' %}">
@@ -54,21 +54,22 @@
 
 
 {% block right_block %}
-<div class="panel panel-default">
-	<div class="panel-heading"><h3 class="panel-title">Curiosity cats</h3>
-	</div>
-</div>
-    {% for cat in cats %}
-	<div class="panel panel-default">
-		<div class="panel-heading"><h3 class="panel-title">{{ cat }}</h3>
-		 </div>
-		<div class="panel-body">
-		<!--<p>mazes solved:{{ cat.mazes_solved }}</p>
-		<p>mules annoyed:{{ cat.mazes_created }}</p>-->
-		</div>
-	 </div>
-    {% endfor %}
-</div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">Curiosity cats</h3>
+    </div>
+
+    </div>
+        {% for cat in cats %}
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">{{ cat }}</h3>
+             </div>
+            <div class="panel-body">
+            <p>mazes solved:{{ cat.mazes_solved }}</p>
+            <p>mules annoyed:{{ cat.mazes_created }}</p>
+            </div>
+         </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
 

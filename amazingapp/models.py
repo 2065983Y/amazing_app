@@ -2,13 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-
 class Maze(models.Model):
     name = models.CharField(max_length=128, unique=True)
     rows = models.IntegerField()
     cols = models.IntegerField()
     cells = models.TextField()
-    solved_by = models.ForeignKey(User, related_name="Solved by", null=True)
+    solved_by = models.ManyToManyField(User, related_name="Solved by")
     attempts = models.IntegerField(default = 0)
     creator = models.ForeignKey(User, related_name="Built by")
     __grid = None
@@ -33,7 +32,6 @@ class Maze(models.Model):
 
     def __unicode__(self):
         return self.name
-
 
 
 class UserProfile(models.Model):

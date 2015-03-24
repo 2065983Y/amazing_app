@@ -4,8 +4,6 @@ var clicked = {};
 function displayCells(rows, cols, clicked)
 {
     var cells = "";
-    console.log("rows", rows);
-    console.log("cols", cols);
     for(var r=0;r<rows;r++)
     {
         for(var c=0;c<cols;c++)
@@ -22,7 +20,6 @@ function displayCells(rows, cols, clicked)
             cells = cells.concat("1");
         }
     }
-    console.log("cells", cells);
     return cells;
 }
 

@@ -6,10 +6,21 @@
 
 
 {% block main_block %}
+        <div class="button_block">
+            <p> Maze - {{ maze_name }} created successfully  </p>
+            <a href="{% url 'index' %}">
+                <p><button class="btn btn-primary btn-block" type="submit" name="submit">Go home now to celebrate</button></p>
+            </a>
 
-    <p> Maze - {{ maze_name }} created successfully  </p>
-    <a href="{% url 'index' %}"> Go home now to celebrate</a>
+            <a href="{% url 'mazePicker' %}">
+                <p><button class="btn btn-warning btn-block" type="submit" name="submit">Or see what the others did</button></p>
+            </a>
 
+            <a href="{% url 'createMaze' %}">
+                <p><button class="btn btn-danger btn-block" type="submit" name="submit">...Oooor just create a new one</button></p>
+            </a>
+
+        </div>
 {% endblock %}
 
 

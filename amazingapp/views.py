@@ -17,21 +17,17 @@ from django.contrib.auth import authenticate, login
 def index(request):
     total_mazes = 0
     unsolved = {}
-    #all_userprofiles = UserProfile.objects.all()
-    #mules_list = UserProfile.objects.order_by('-mazes_created')[:5]
-    #cats_list = UserProfile.objects.order_by('-mazes_solved')[:5]
-    #for profile in all_userprofiles:
-    #    print profile
-    #    total_mazes += profile.mazes_created
-    #for profile in all_userprofiles:
-    #    unsolved[profile] = total_mazes - profile.mazes_solved
-    #context_dict = {'mules': mules_list, 'cats': cats_list, 'unsolved': unsolved}
-    response = render(request, 'amazingApp/index.html', {})
+    all_userprofiles = UserProfile.objects.all()
+    mules_list = UserProfile.objects.order_by('-mazes_created')[:5]
+    cats_list = UserProfile.objects.order_by('-mazes_solved')[:5]
+    context_dict = {'mules': mules_list, 'cats': cats_list}
+    response = render(request, 'amazingApp/index.html', context_dict)
     return response
 
 
 def builders(request):
     return render(request, 'amazingApp/index.html', {})
+
 
 def solvers(request):
     return render(request, 'amazingApp/index.html', {})
@@ -56,7 +52,6 @@ def mazes(request):
 def create_maze(request):
     context_dict = {}
     if request.method == "POST":
-        data = request.POST
         form = CreateMazeForm(data=request.POST)
         #try:
         maze = form.save(commit=False)
@@ -79,6 +74,7 @@ def create_maze(request):
             builder.mazes_created += 1
             builder.save()
             form.save(commit=True)
+            return redirect("/mazeapp/")
         else:
             if not form.systemPath:
                 form._errors["unsolvable"] = [u'Maze does not have a path, custom start & end coming soon']
@@ -100,20 +96,25 @@ def pickMaze(request):
 
 
 def solveMaze(request, maze_name):
+    context_dic = {}
     if request.method == "POST":
         print request.POST
         maze = Maze.objects.get(name=maze_name)
-        print "USER", request.user, "solved by:", maze.solved_by
-        if not maze.solved_by:
-            maze.solved_by = request.user
-        elif request.user not in maze.solved_by.objects:
+        #print "USER", request.user, "solved by:", maze.solved_by
+        #print "somtthing", request.user in maze.solved_by
+        print Maze.objects.get(name=maze_name).solved_by.all()
+
+        solver = UserProfile.objects.get(user=request.user)
+        if not maze.solved_by.all():
             maze.solved_by.add(request.user)
-            solver = UserProfile.objects.get(user=request.user)
+            solver.mazes_solved += 1
+            solver.save()
+        elif request.user not in Maze.objects.get(name=maze_name).solved_by.all():
+            maze.solved_by.add(request.user)
             solver.mazes_solved += 1
             solver.save()
         maze.save()
     else:
-        context_dic = {}
         try:
             maze = Maze.objects.get(name=maze_name)
             maze.attempts += 1
@@ -127,6 +128,7 @@ def solveMaze(request, maze_name):
             return redirect('/mazeapp/')
 
     return render(request, 'amazingApp/solve_maze.html', context_dic)
+
 
 def about(request):
     return render(request, 'amazingApp/about.html', {})
@@ -190,7 +192,6 @@ def user_login(request):
         return render(request, 'amazingApp/login.html', {})
 
 
-
 def register_profile(request):
 
     if request.method == 'POST':
@@ -232,7 +233,6 @@ def edit_profile(request):
         user_form = UserEditForm(instance=request.user)
         profile_form = UserProfileForm(instance=request.user.userprofile)
 
-    print "6"
     context_dict['user_form'] = user_form
     context_dict['profile_form'] = profile_form
     context_dict['picture'] = request.user.userprofile.picture
