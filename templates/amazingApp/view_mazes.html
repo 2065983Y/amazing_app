@@ -13,7 +13,7 @@
                         <th data-field="name">Columns  </th>
                         <th data-field="name" data-sortable="true">Creator  </th>
                         <th data-field="name" data-sortable="true">Attempted  </th>
-                        <th data-field="name" data-sortable="true">Unsolved?  </th>
+                        <th data-field="name" data-sortable="true">Solved?  </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,7 +24,7 @@
                         <td> {{ maze.cols }} </td>
                         <td> {{ maze.creator }} </td>
                         <td> {{ maze.attempts }} </td>
-                        <td> {% if maze.unsolved %}
+                        <td> {% if maze.solved %}
                                 <p>Yes</p>
                             {% else %}
                                 <p>No</p>
