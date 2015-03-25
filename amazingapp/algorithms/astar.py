@@ -29,7 +29,7 @@ def r_path(dic, point):
 
 
 def isWalkable(a):
-    return a.walkable == True
+    return a.walkable
 
 
 def neigh_nodes(a, grid):
@@ -113,7 +113,7 @@ def createMatrix(lines):
 if __name__ == "__main__":
 
     lines = []
-    f = open("grid4x4", 'rb')
+    f = open("grid3x3", 'rb')
     lines = f.readlines()
     f.close()
 

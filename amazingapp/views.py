@@ -108,6 +108,11 @@ def solveMaze(request, maze_name):
         #print "USER", request.user, "solved by:", maze.solved_by
         #print "somtthing", request.user in maze.solved_by
 
+        print "fake user", "yes" if request.user else "no"
+        if request.user == "AnonymousUser":
+            print "aaa"
+            #maybe give something more to the poor anonymous(guest) user here but that's all for now
+            redirect('/mazeapp/')
         solver = UserProfile.objects.get(user=request.user)
         if not maze.solved_by.all():
             maze.solved_by.add(request.user)
