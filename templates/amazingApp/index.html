@@ -17,6 +17,8 @@
             <div class="panel-heading"><h3 class="panel-title">{{ mule }}</h3>
             </div>
             <div class="panel-body">
+                <p>mazes created:{{ mule.mazes_created }}</p>
+                <!--<p>mules annoyed:{{ mule.mazes_created }}</p>-->
             </div>
         </div>
         {% endfor %}
@@ -27,6 +29,7 @@
         {% if user.is_authenticated %}
             <p>Hello, {{ user.username }}</p>
         {% endif %}
+            <h2> Mazes created: {{ mazes_num }} out of these still unsolved: {{ unsolved_mazes }}</h2>
 		<div class="button_block">
 
             {% if user.is_authenticated %}
@@ -64,8 +67,8 @@
             <div class="panel-heading"><h3 class="panel-title">{{ cat }}</h3>
              </div>
             <div class="panel-body">
-            <p>mazes solved:{{ cat.mazes_solved }}</p>
-            <p>mules annoyed:{{ cat.mazes_created }}</p>
+                <p>mules annoyed:{{ cat.mazes_solved }}</p>
+                <!--<p>mules annoyed:{{ cat.mazes_created }}</p>-->
             </div>
          </div>
         {% endfor %}

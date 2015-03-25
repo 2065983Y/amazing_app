@@ -11,7 +11,17 @@
 
 {% block main_block %}
 
-    <p> {{ maze_name }} </p>
+    <div class="button_block">
+        <h2>You are currently solving {{ maze_name }}</h2>
+        {% if maze_solved %}
+            <h3>{{ maze_name }} was solved already</h3>
+        {% else %}
+            <h2>Be the first to solve it!</h2>
+        {% endif %}
+        {% if maze_attempts != 0 %}
+            <h3>{{ maze_name }} was attempted {{ maze_attempts }} time(s)</h3>
+        {% endif %}
+    </div>
     <rows id="rows" value="{{ maze_rows }}"></rows>
     <cols id="cols" value="{{ maze_cols }}"></cols>
     <cells id="cells" value="{{ maze_cells }}"></cells>

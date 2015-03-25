@@ -10,6 +10,7 @@ class Maze(models.Model):
     solved_by = models.ManyToManyField(User, related_name="Solved by")
     attempts = models.IntegerField(default = 0)
     creator = models.ForeignKey(User, related_name="Built by")
+    solved = models.BooleanField(default=False)
     __grid = None
 
 

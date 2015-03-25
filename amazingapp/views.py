@@ -17,10 +17,12 @@ from django.contrib.auth import authenticate, login
 def index(request):
     total_mazes = 0
     unsolved = {}
-    all_userprofiles = UserProfile.objects.all()
+    users = UserProfile.objects.all()
     mules_list = UserProfile.objects.order_by('-mazes_created')[:5]
     cats_list = UserProfile.objects.order_by('-mazes_solved')[:5]
     context_dict = {'mules': mules_list, 'cats': cats_list}
+    context_dict['unsolved_mazes'] = Maze.objects.all().filter(solved=False).count()
+    context_dict['mazes_num'] = Maze.objects.all().count()
     response = render(request, 'amazingApp/index.html', context_dict)
     return response
 
@@ -34,7 +36,7 @@ def solvers(request):
 
 
 def mazes(request):
-    return render(request, 'amazingApp/index.html', {})
+    return render(request, 'amazingApp/view_mazes.html', {'mazes':Maze.objects.all()})
 
 
 #def mazes(request):
@@ -73,6 +75,7 @@ def create_maze(request):
             builder = UserProfile.objects.get(user=request.user)
             builder.mazes_created += 1
             builder.save()
+            #maze.solved = False
             form.save(commit=True)
             return redirect("/mazeapp/")
         else:
@@ -97,12 +100,10 @@ def pickMaze(request):
 
 def solveMaze(request, maze_name):
     context_dic = {}
+    maze = Maze.objects.get(name=maze_name)
     if request.method == "POST":
-        print request.POST
-        maze = Maze.objects.get(name=maze_name)
         #print "USER", request.user, "solved by:", maze.solved_by
         #print "somtthing", request.user in maze.solved_by
-        print Maze.objects.get(name=maze_name).solved_by.all()
 
         solver = UserProfile.objects.get(user=request.user)
         if not maze.solved_by.all():
@@ -113,10 +114,10 @@ def solveMaze(request, maze_name):
             maze.solved_by.add(request.user)
             solver.mazes_solved += 1
             solver.save()
+        maze.solved = True
         maze.save()
     else:
         try:
-            maze = Maze.objects.get(name=maze_name)
             maze.attempts += 1
             context_dic["maze_cells"] = maze.cells
             context_dic["maze_name"] = maze.name
@@ -126,6 +127,9 @@ def solveMaze(request, maze_name):
         except Maze.DoesNotExist:
             print "Maze does not exist"
             return redirect('/mazeapp/')
+
+    context_dic['maze_solved'] = maze.solved
+    context_dic['maze_attempts'] = maze.attempts - 1
 
     return render(request, 'amazingApp/solve_maze.html', context_dic)
 

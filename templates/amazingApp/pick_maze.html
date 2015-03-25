@@ -3,7 +3,11 @@
 {% block title_block %} - pick maze {% endblock %}
 
 {% block main_block %}
-    {% for maze in mazes %}
-        <li><a href="/mazeapp/solve/{{ maze.name }}">{{ maze.name }}</a></li>
-    {% endfor %}
+    {% if mazes %}
+        {% for maze in mazes %}
+            <li><a href="/mazeapp/solve/{{ maze.name }}">{{ maze.name }}</a></li>
+        {% endfor %}
+    {% else %}
+        <h1>Soz, no mazes to present, maybe go and create one? Or just wait for an eternity for another lost soul to join!</h1>
+    {% endif %}
 {% endblock %}

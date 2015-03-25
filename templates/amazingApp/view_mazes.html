@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block main_block %}
+
+        {% if mazes %}
+
+            <table class="table table-striped table-bordered table-hover table-condensed" data-height="299"
+                    data-sort-name="name" data-sort-order="desc">
+                <thead>
+                    <tr>
+                        <th data-field="name" data-sortable="true">Name  </th>
+                        <th data-field="name">Rows  </th>
+                        <th data-field="name">Columns  </th>
+                        <th data-field="name" data-sortable="true">Creator  </th>
+                        <th data-field="name" data-sortable="true">Attempted  </th>
+                        <th data-field="name" data-sortable="true">Unsolved?  </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for maze in mazes %}
+                    <tr>
+                        <td><a href="/mazeapp/solve/{{ maze.name }}">{{ maze.name }}</a></td>
+                        <td> {{ maze.rows }} </td>
+                        <td> {{ maze.cols }} </td>
+                        <td> {{ maze.creator }} </td>
+                        <td> {{ maze.attempts }} </td>
+                        <td> {% if maze.unsolved %}
+                                <p>Yes</p>
+                            {% else %}
+                                <p>No</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h1>Soz, no mazes to present, maybe go and create one? Or just wait for an eternity for another lost soul to join!</h1>
+        {% endif %}
+
+{% endblock %}
