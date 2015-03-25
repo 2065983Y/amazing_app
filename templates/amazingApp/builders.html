@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block main_block %}
+
+        {% if users %}
+
+            <table class="table table-striped table-bordered table-hover table-condensed" data-height="299"
+                    data-sort-name="name" data-sort-order="desc">
+                <thead>
+                    <tr>
+                        <th data-field="name" data-sortable="true">Username  </th>
+                        <th data-field="name"> Mazes Created </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        {%if user.mazes_created > 0%}
+                        <td>{{ user }}</a></td>
+                        <td> {{ user.mazes_created}} </td>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h1>Ooops. No creators! </h1>
+        {% endif %}
+
+{% endblock %}

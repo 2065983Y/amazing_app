@@ -28,14 +28,14 @@ def index(request):
 
 
 def builders(request):
-    return render(request, 'amazingApp/index.html', {})
+    return render(request, 'amazingApp/builders.html', {'users': UserProfile.objects.all()})
 
 
 def created(request):
     return render(request,'amazingApp/maze_created.html', {})
 
 def solvers(request):
-    return render(request, 'amazingApp/index.html', {})
+    return render(request, 'amazingApp/solvers.html', {'users': UserProfile.objects.all()})
 
 
 def mazes(request):
