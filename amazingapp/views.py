@@ -28,18 +28,19 @@ def index(request):
 
 
 def builders(request):
-    return render(request, 'amazingApp/index.html', {})
+    return render(request, 'amazingApp/builders.html', {'users': UserProfile.objects.all()})
 
 
 def created(request):
     return render(request,'amazingApp/maze_created.html', {})
 
+
 def solvers(request):
-    return render(request, 'amazingApp/index.html', {})
+    return render(request, 'amazingApp/solvers.html', {'users': UserProfile.objects.all()})
 
 
 def mazes(request):
-    return render(request, 'amazingApp/view_mazes.html', {'mazes':Maze.objects.all()})
+    return render(request, 'amazingApp/view_mazes.html', {'mazes': Maze.objects.all()})
 
 
 #def mazes(request):
@@ -104,6 +105,7 @@ def pickMaze(request):
 def solveMaze(request, maze_name):
     context_dic = {}
     maze = Maze.objects.get(name=maze_name)
+    context_dic["maze_name"] = maze.name
     if request.method == "POST":
         #print "USER", request.user, "solved by:", maze.solved_by
         #print "somtthing", request.user in maze.solved_by
@@ -128,7 +130,6 @@ def solveMaze(request, maze_name):
         try:
             maze.attempts += 1
             context_dic["maze_cells"] = maze.cells
-            context_dic["maze_name"] = maze.name
             context_dic["maze_rows"] = maze.rows
             context_dic["maze_cols"] = maze.cols
             maze.save()
