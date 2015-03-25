@@ -31,6 +31,9 @@ def builders(request):
     return render(request, 'amazingApp/index.html', {})
 
 
+def created(request):
+    return render(request,'amazingApp/maze_created.html', {})
+
 def solvers(request):
     return render(request, 'amazingApp/index.html', {})
 
@@ -77,7 +80,7 @@ def create_maze(request):
             builder.save()
             #maze.solved = False
             form.save(commit=True)
-            return redirect("/mazeapp/")
+            return redirect("/mazeapp/created")
         else:
             if not form.systemPath:
                 form._errors["unsolvable"] = [u'Maze does not have a path, custom start & end coming soon']
