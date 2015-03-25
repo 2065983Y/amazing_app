@@ -66,29 +66,29 @@ var grid = drawMaze(document.getElementById("rows").getAttribute("value"), docum
     //document.getElementById("cells").setAttribute("value", displayCells(rows, cols, clicked));
 });
 
-function displayCells(rows, cols, clicked)
-{
-    var cells = "";
-    console.log("rows", rows);
-    console.log("cols", cols);
-    for(var r=0;r<rows;r++)
-    {
-        for(var c=0;c<cols;c++)
-        {
-            var key = r.toString().concat(c.toString());
-            if(key in clicked)
-            {
-                if(clicked[key]["row"] == r && clicked[key]["col"] == c)
-                {
-                    cells = cells.concat("1");
-                    continue;
-                }
-            }
-            cells = cells.concat("0");
-        }
-    }
-    return cells;
-}
+//function displayCells(rows, cols, clicked)
+//{
+//    var cells = "";
+//    console.log("rows", rows);
+//    console.log("cols", cols);
+//    for(var r=0;r<rows;r++)
+//    {
+//        for(var c=0;c<cols;c++)
+//        {
+//            var key = r.toString().concat(c.toString());
+//            if(key in clicked)
+//            {
+//                if(clicked[key]["row"] == r && clicked[key]["col"] == c)
+//                {
+//                    cells = cells.concat("1");
+//                    continue;
+//                }
+//            }
+//            cells = cells.concat("0");
+//        }
+//    }
+//    return cells;
+//}
 
 document.body.appendChild(grid);
 
@@ -102,15 +102,15 @@ function drawMaze( rows, cols, callback ){
             cells = cells.concat(cellsUni[c]);
         }
     }
-    console.log(cells);
+//    console.log(cells);
     var i=0;
     var grid = document.createElement('table');
     grid.className = 'grid';
-    for (var r=0;r<rows;++r){
+    for (var r=0;r<rows;r++){
         var tr = grid.appendChild(document.createElement('tr'));
-        for (var c=0;c<cols;++c){
+        for (var c=0;c<cols;c++){
             var cell = tr.appendChild(document.createElement('td'));
-            if(cells[r*rows + c]==0)
+            if(cells[r*cols + c]==0)
             {
                 cell.className="wall";
             }
@@ -129,18 +129,18 @@ function drawMaze( rows, cols, callback ){
     return grid;
 }
 
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
+//function getCookie(name) {
+//    var cookieValue = null;
+//    if (document.cookie && document.cookie != '') {
+//        var cookies = document.cookie.split(';');
+//        for (var i = 0; i < cookies.length; i++) {
+//            var cookie = jQuery.trim(cookies[i]);
+//            // Does this cookie string begin with the name we want?
+//            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+//                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+//                break;
+//            }
+//        }
+//    }
+//    return cookieValue;
+//}

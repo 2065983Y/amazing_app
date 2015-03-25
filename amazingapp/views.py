@@ -73,7 +73,7 @@ def create_maze(request):
 
         grid = maze.getOrCreateGrid()
 
-        print form.is_valid(grid)
+#        print form.is_valid(grid)
         if form.is_valid(grid):
             maze.creator = request.user
             builder = UserProfile.objects.get(user=request.user)
@@ -86,7 +86,7 @@ def create_maze(request):
             if not form.systemPath:
                 form._errors["unsolvable"] = [u'Maze does not have a path, custom start & end coming soon']
                 context_dict["unsolvable"] = 'Maze does not have a path, custom start & end coming soon'
-            print form.errors
+            # print form.errors
         #except:
         #    pass
     else:
@@ -110,11 +110,9 @@ def solveMaze(request, maze_name):
         #print "USER", request.user, "solved by:", maze.solved_by
         #print "somtthing", request.user in maze.solved_by
 
-        print "fake user", "yes" if request.user else "no"
-        if request.user == "AnonymousUser":
-            print "aaa"
+        if not request.user.is_authenticated():
             #maybe give something more to the poor anonymous(guest) user here but that's all for now
-            redirect('/mazeapp/')
+            return redirect('/mazeapp/') # perhaps give the guest user another screen to improve their testing experice of the site
         solver = UserProfile.objects.get(user=request.user)
         if not maze.solved_by.all():
             maze.solved_by.add(request.user)

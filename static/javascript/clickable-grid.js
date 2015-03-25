@@ -73,5 +73,4 @@ function clickableGrid( rows, cols, callback ){
     return grid;
 }
 
-
 document.getElementById("clickMe").onclick = generateMaze;

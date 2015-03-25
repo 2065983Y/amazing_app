@@ -11,10 +11,12 @@ class Node:
     g_score = 0
     walkable = True
 
+    def __str__(self):
+        return "[ " + str(self.x) + ", "+ str(self.y) + " " + str(self.walkable) + " ]"
 
 def heuristicScore(a, b):
-    c = sqrt(pow((a.x - b.x), 2) + (pow((a.y - b.y), 2)))
-    return c
+    return sqrt(pow((a.x - b.x), 2) + (pow((a.y - b.y), 2)))
+
 
 
 path = []
@@ -53,6 +55,11 @@ def neigh_nodes(a, grid):
     return nodes
 
 def __aStar(start, end, grid):
+    # print "NODES"
+    # for nodes in grid:
+    #     for node in nodes:
+    #         print node,
+    #     print
     closed_set = set([])
     open_set = set([start])
     dic = {}
@@ -66,10 +73,11 @@ def __aStar(start, end, grid):
             return path
         open_set.remove(current)
         closed_set.add(current)
-        #neigs = neigh_nodes(current, grid)
+        # neigs = neigh_nodes(current, grid)
         # print '---------------'
+        # print "Neighs for", current
         # for n in neigs:
-        # print n.x, n.y
+        #     print n.x, n.y
         # print '---------------'
         for a in neigh_nodes(current, grid):
             if a in closed_set:
@@ -85,18 +93,26 @@ def __aStar(start, end, grid):
 
     return [] # no path was found from start to end
 
-def aStar(grid, start=None, end=None):
-    grid = createMatrix(grid)
+def aStar(gri, start=None, end=None):
+    print "Grid2", gri
+    grid = createMatrix(gri)
+    for line in grid:
+        for node in line:
+            print node,
+        print
+    #print "grid3", grid
     if(start == None and end == None):
         start = grid[0][0]
-        end = grid[(len(grid)) - 1][-1]
+        end = grid[len(grid) - 1][-1]
+#        print "END:", end
     return __aStar(start, end, grid)
 
 def createMatrix(lines):
     grid = []
     y = 0
     for line in lines:
-        line = line[:-1]
+        if isinstance(line, str) or isinstance(line, unicode):
+            line = line.strip()
         line = [int(x) for x in line]
         temp = []
         for x in range(len(line)):
@@ -105,6 +121,7 @@ def createMatrix(lines):
             n.y = y
             n.walkable = (line[x] == 1)
             temp += [n]
+ #           print n.x, n.y
         grid += [temp]
         y += 1
     return grid
@@ -113,7 +130,7 @@ def createMatrix(lines):
 if __name__ == "__main__":
 
     lines = []
-    f = open("grid3x3", 'rb')
+    f = open("grid3x4", 'rb')
     lines = f.readlines()
     f.close()
 
