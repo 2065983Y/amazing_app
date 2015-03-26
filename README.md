@@ -11,7 +11,7 @@
 9.Load  http://127.0.0.1:8000/mazeapp/ in your browser 
 
 It's recommended to set up a new virtual environment for this application, so before running the command 
-pip install -r requirements.txt. Type in "mkvirtualenv amazingapp", followed by "workon amazingapp". 
+pip install -r requirements.txt,type in "mkvirtualenv amazingapp", followed by "workon amazingapp". 
 
 If you can't follow the instructions above, take a look at Chapter 3, Tango with Django: 
 http://www.tangowithdjango.com/book17/chapters/requirements.html
