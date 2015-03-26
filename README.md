@@ -7,7 +7,7 @@
 5. python manage.py makemigrations 
 6. python manage.py migrate 
 7. python populate.py
-8. To run the server type in: python manage.py runserver
+8. To run the server type in: python manage.py runserver 
 9.Load  http://127.0.0.1:8000/mazeapp/ in your browser 
 
 It's recommended to set up a new virtual environment for this application, so before running the command 
