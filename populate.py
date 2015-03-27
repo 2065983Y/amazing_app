@@ -15,8 +15,8 @@ def add_user(username, email, password):
 	try:
 		u = User.objects.get(username=username)
 	except:
-		u = User.objects.create_user
-    return u
+		u = User.objects.create_user(username, email, password)
+	return u
 
 def add_user_profile(user, mazes_created, mazes_solved):
 	p = UserProfile.objects.get_or_create(user=user, mazes_created=mazes_created, mazes_solved=mazes_solved)[0]
