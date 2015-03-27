@@ -5,64 +5,115 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 import views
 
+# Helper method, for creating mazes
+def add_maze(name, rows, cols, cells, attempts, solved, creator):
+		maze = Maze.objects.get_or_create(name=name, rows=rows, cols=cols, cells=cells,
+                                      attempts=attempts, solved = solved, creator = creator)[0]
+		return maze	 
 
+class ModelTests(TestCase):
+	#Creating users
+	def setUp(self):
+		u = User.objects.create(username='test')
+		u.set_password('test')
+		u.save()
+		solver = User.objects.create(username='solver')
+		solver.set_password('solver')
+		solver.save()
+	
+	# Test for adding user
+	def test_add_user(self):
+		u = User.objects.get(username = 'test')
+		p = UserProfile.objects.create(user=u, mazes_created=1, mazes_solved=1)
+		p.save()
+		self.assertEqual(u.username=='test', True)
+	
+	# Test for tracking the creator of mazes
+	def test_add_maze_creator(self):
+		u = User.objects.get(username='test')
+		solver = User.objects.get(username='solver')
+		m = Maze.objects.create(name="test1", rows=3, cols=3, cells=9,
+                                      attempts=0, solved = True, creator = u)
+		m.solved_by.add(solver)
+		m.save()
+		self.assertEqual(m.creator==u, True)
 
-class MazeTest(TestCase):
-    user = User("joe")
-    u1 = User("bob")
-    def create_maze(self,name = "test_maze",rows = 10,cols = 10,cells = 100,
-                     solved_by =u1,attempts = 10,creator = user,solved = True):
-
-         return Maze.objects.create(name = name,rows = rows,cols = cols,cells = cells,
-                     solved_by = solved_by,attempts = attempts,creator = creator,soved = solved)
-
-    @property
-    def create_user(self):
-        user = User(10)
-        return UserProfile.objects.create(user = user,mazes_created = 1, mazes_solved = 1)
-
-    def test_create_maze(self):
-
-        m = self.create_maze()
-        self.assertTrue(isinstance(m,Maze))
-
-    def test_user_creation(self):
-        u = self.create_user
-        self.assertTrue(isinstance(u,UserProfile))
-
-
-    def test_maze_list_view(self):
-        m = self.create_maze()
-        url = reverse('mazes')
-        response= self.client.get(url)
-        self.assertEquals(response.status_code,200)
-        self.assertIn("mazes",response.content)
-
-    def test_create_maze_view_redirect(self):
-        m = self.create_maze()
-        grid = m.getOrCreateGrid()
-        validity = m.is_valid(grid)
-        self.assertEquals(validity,m.is_valid(grid))
-
-
-    def test_index(self):
-        '''
-        Tests if the top 5 mules and cats are displayed
-        '''
-
-        #if site responds
-        response = self.client.get(reverse('index'))
-        self.assertEqual(response.status_code, 200)
-        # check the mules and cats
-
-        self.assertIn("mules",response.context)
-        self.assertIn("cats",response.context)
-
-
-
-
-
-
-
-
-
+class ViewTest(TestCase):
+	
+	# Test for display of table of mazes
+	def test_maze_list_view(self):
+		u = User.objects.create(username='test')
+		u.set_password('test')
+		u.save()
+		de = add_maze("Destroyer583", 4, 4, "1000110001100011", 2,  True, u)
+		de.solved_by.add(u)
+		de.save()
+		response = self.client.get(reverse('mazes'))
+		self.assertEqual(response.status_code, 200)
+		self.assertContains(response, "Destroyer583")
+		num_mazes = len(response.context['mazes'])
+		self.assertEqual(num_mazes , 1)
+	
+	# Test for display of table of builders
+	def test_maze_list_builders(self):
+		user = User.objects.create(username='user')
+		user.set_password('user')
+		user.save()
+		p = UserProfile.objects.create(user=user, mazes_created=1, mazes_solved=1)
+		p.save()
+		de = add_maze("Labirintas", 4, 4, "1000110001100011", 2,  True, user)
+		de.solved_by.add(user)
+		de.save()
+		response = self.client.get(reverse('builders'))
+		self.assertEqual(response.status_code, 200)
+		self.assertContains(response, "user")
+		
+	# Test for display of table of solvers
+	def test_maze_list_solvers(self):
+		user = User.objects.create(username='user')
+		user.set_password('user')
+		user.save()
+		p = UserProfile.objects.create(user=user, mazes_created=1, mazes_solved=1)
+		p.save()
+		de = add_maze("Labirintas", 4, 4, "1000110001100011", 2,  True, user)
+		de.solved_by.add(user)
+		de.save()
+		response = self.client.get(reverse('solvers'))
+		self.assertEqual(response.status_code, 200)
+		self.assertContains(response, "user")
+		
+	# Test for display of top five mules/cats
+	def test_index(self):
+		user = User.objects.create(username='user')
+		user.set_password('user')
+		user.save()
+		p = UserProfile.objects.create(user=user, mazes_created=1, mazes_solved=1)
+		p.save()
+		user1 = User.objects.create(username='user1')
+		user1.set_password('user1')
+		user1.save()
+		p1 = UserProfile.objects.create(user=user1, mazes_created=2, mazes_solved=2)
+		p1.save()
+		user2 = User.objects.create(username='user2')
+		user2.set_password('user2')
+		user2.save()
+		p2 = UserProfile.objects.create(user=user2, mazes_created=3, mazes_solved=3)
+		p2.save()
+		user3 = User.objects.create(username='user3')
+		user3.set_password('user3')
+		user3.save()
+		p3 = UserProfile.objects.create(user=user3, mazes_created=4, mazes_solved=4)
+		p3.save()
+		user4 = User.objects.create(username='user4')
+		user4.set_password('user4')
+		user4.save()
+		p4 = UserProfile.objects.create(user=user4, mazes_created=5, mazes_solved=5)
+		p4.save()
+		response = self.client.get(reverse('index'))
+		self.assertEqual(response.status_code, 200)
+		self.assertContains(response, "user2")
+		self.assertContains(response, "user3")
+		self.assertContains(response, "user4")
+		self.assertContains(response, "user1")
+		self.assertContains(response, "user")
+	
