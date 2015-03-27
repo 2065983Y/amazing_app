@@ -16,6 +16,8 @@ class CreateMazeForm(forms.ModelForm):
     systemPath = None
 
     def is_valid(self, grid):
+        if not self.cells:
+            return False
         self.systemPath = aStar(grid)
         #print "Astar result", aStar(grid)
         return len(self.systemPath) != 0

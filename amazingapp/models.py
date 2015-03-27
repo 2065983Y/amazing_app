@@ -15,6 +15,10 @@ class Maze(models.Model):
 
 
     def getOrCreateGrid(self):
+        print self.cells, len(self.cells)
+        if self.rows*self.cols > len(self.cells):
+            self.cells = []
+            return self.cells
         if(self.__grid):
             return self.__grid
 

@@ -72,21 +72,25 @@ def create_maze(request):
     #print type(form.rows), type(form.cols)
 
         grid = maze.getOrCreateGrid()
-
-#        print form.is_valid(grid)
-        if form.is_valid(grid):
-            maze.creator = request.user
-            builder = UserProfile.objects.get(user=request.user)
-            builder.mazes_created += 1
-            builder.save()
-            #maze.solved = False
-            form.save(commit=True)
-            return redirect("/mazeapp/created")
-        else:
-            if not form.systemPath:
-                form._errors["unsolvable"] = [u'Maze does not have a path, custom start & end coming soon']
-                context_dict["unsolvable"] = 'Maze does not have a path, custom start & end coming soon'
+        if not grid:
+            return redirect("/mazeapp/create/")
+        if grid:
+    #        print form.is_valid(grid)
+            if form.is_valid(grid):
+                maze.creator = request.user
+                builder = UserProfile.objects.get(user=request.user)
+                builder.mazes_created += 1
+                builder.save()
+                #maze.solved = False
+                form.save(commit=True)
+                return redirect("/mazeapp/created")
+            else:
+                if not form.systemPath:
+                    form._errors["unsolvable"] = [u'Maze does not have a path, custom start & end coming soon']
+                    context_dict["unsolvable"] = 'Maze does not have a path, custom start & end coming soon'
             # print form.errors
+        else:
+            context_dict["unsolvable"] = "Please do not submit an empty maze"
         #except:
         #    pass
     else:
