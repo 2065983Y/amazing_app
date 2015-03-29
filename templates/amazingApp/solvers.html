@@ -17,10 +17,9 @@
                 {% for user in users %}
                     <tr>
                         {%if user.mazes_solved > 0%}
-                        <td>{{ user }}</a></td>
+                        <td>{{ user }}</td>
                         <td> {{ user.mazes_solved}} </td>
                             {% endif %}
-                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

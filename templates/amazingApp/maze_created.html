@@ -9,15 +9,15 @@
         <div class="button_block">
             <p> Maze - {{ maze_name }} created successfully  </p>
             <a href="{% url 'index' %}">
-                <p><button class="btn btn-primary btn-block" type="submit" name="submit">Go home now to celebrate</button></p>
+                <p><span class="btn btn-primary btn-block" type="submit" name="submit">Go home now to celebrate</span></p>
             </a>
 
             <a href="{% url 'mazePicker' %}">
-                <p><button class="btn btn-warning btn-block" type="submit" name="submit">Or see what the others did</button></p>
+                <p><span class="btn btn-warning btn-block" type="submit" name="submit">Or see what the others did</span></p>
             </a>
 
             <a href="{% url 'createMaze' %}">
-                <p><button class="btn btn-danger btn-block" type="submit" name="submit">...Oooor just create a new one</button></p>
+                <p><span class="btn btn-danger btn-block" type="submit" name="submit">...Oooor just create a new one</span></p>
             </a>
 
         </div>

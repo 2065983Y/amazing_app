@@ -8,8 +8,8 @@
                     data-sort-name="name" data-sort-order="desc">
                 <thead>
                     <tr>
-                        <th data-field="name" data-sortable="true">Username  </th>
-                        <th data-field="name"> Mazes Created </th>
+                        <th data-field="name" data-sortable="true">Username</th>
+                        <th data-field="name">Mazes Created</th>
 
                     </tr>
                 </thead>
@@ -17,10 +17,9 @@
                 {% for user in users %}
                     <tr>
                         {%if user.mazes_created > 0%}
-                        <td>{{ user }}</a></td>
+                        <td>{{ user }}</td>
                         <td> {{ user.mazes_created}} </td>
                             {% endif %}
-                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
