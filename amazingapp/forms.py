@@ -15,7 +15,10 @@ class CreateMazeForm(forms.ModelForm):
     bestPath = None
     systemPath = None
 
-    def is_valid(self, grid):
+    def is_valid(self, grid, *args, **kwargs):
+        valid = super(CreateMazeForm, self).is_valid()
+        if not valid:
+            return valid
 #        if not self.cells:
 #            return False
         self.systemPath = aStar(grid)
