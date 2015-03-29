@@ -32,10 +32,12 @@
 <strong id="like_count">{{  maze.likes }}</strong> people like this maze
 
 {% if user.is_authenticated %}
+	{% if liked %}
         <button id="likes" data-mazename="{{maze.name}}" class="btn btn-primary" type="button">
         <span class="glyphicon glyphicon-thumbs-up"></span>
         Like
         </button>
+	{% endif %}
 {% endif %}
 
 </p>
