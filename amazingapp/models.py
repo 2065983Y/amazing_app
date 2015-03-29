@@ -12,6 +12,7 @@ class Maze(models.Model):
     creator = models.ForeignKey(User, related_name="Built by")
     solved = models.BooleanField(default=False)
     likes = models.IntegerField(default = 0)
+    liked_by = models.ManyToManyField(User, related_name="Liked by")
     __grid = None
 
 

@@ -110,6 +110,7 @@ def solveMaze(request, maze_name):
     context_dic = {}
     maze = Maze.objects.get(name=maze_name)
     context_dic["maze_name"] = maze.name
+    context_dic['liked'] = True
     if request.method == "POST":
         #print "USER", request.user, "solved by:", maze.solved_by
         #print "somtthing", request.user in maze.solved_by
@@ -142,7 +143,8 @@ def solveMaze(request, maze_name):
     context_dic['maze_solved'] = maze.solved
     context_dic['maze_attempts'] = maze.attempts - 1
     context_dic["maze"] = Maze.objects.get(name=maze_name)
-	
+    if request.user in Maze.objects.get(name=maze_name).liked_by.all():
+        context_dic['liked'] = False
     return render(request, 'amazingApp/solve_maze.html', context_dic)
 
 
@@ -258,6 +260,7 @@ def edit_profile(request):
 def like_maze(request):
 
     maze_name = None
+    current_user = request.user
     if request.method == 'GET':
         maze_name = request.GET['maze_name']
 
@@ -268,5 +271,5 @@ def like_maze(request):
             likes = maze.likes + 1
             maze.likes =  likes
             maze.save()
-
+            maze.liked_by.add(current_user)
     return HttpResponse(likes)
