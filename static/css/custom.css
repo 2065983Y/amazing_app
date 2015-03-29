@@ -1,6 +1,7 @@
 body {
     padding-bottom: 40px;
     padding-top: 60px;
+	background: url('pw_maze_white.png') repeat 0 0;
 }
 
 /*body:after {*/
@@ -71,3 +72,13 @@ body {
    margin:0; /* If you want no margin */
    padding:0; /*if your want to padding */
 }
+
+h1, h2, h3, h4, h5{
+     font-family: 'Oswald', sans-serif;
+}
+p, div {
+    font-family: 'Oswald', sans-serif;
+}
+h6{	
+	font-family: 'Oswald', sans-serif;
+	text-align: right;}
