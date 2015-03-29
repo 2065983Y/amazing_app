@@ -11,6 +11,7 @@ class Maze(models.Model):
     attempts = models.IntegerField(default = 0)
     creator = models.ForeignKey(User, related_name="Built by")
     solved = models.BooleanField(default=False)
+    likes = models.IntegerField(default = 0)
     __grid = None
 
 

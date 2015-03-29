@@ -26,9 +26,9 @@
 
 {% block main_block %}
         {% if user.is_authenticated %}
-            <p>Hello, {{ user.username }}</p>
+            <h6>Hello, {{ user.username }}<h6>
         {% endif %}
-            <h2> Mazes created: {{ mazes_num }} out of these still unsolved: {{ unsolved_mazes }}</h2>
+            <h1> Mazes created: {{ mazes_num }} out of these still unsolved: {{ unsolved_mazes }}</h1>
 		<div class="button_block">
 
             {% if user.is_authenticated %}

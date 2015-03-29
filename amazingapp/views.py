@@ -141,7 +141,8 @@ def solveMaze(request, maze_name):
 
     context_dic['maze_solved'] = maze.solved
     context_dic['maze_attempts'] = maze.attempts - 1
-
+    context_dic["maze"] = Maze.objects.get(name=maze_name)
+	
     return render(request, 'amazingApp/solve_maze.html', context_dic)
 
 
@@ -252,3 +253,20 @@ def edit_profile(request):
     context_dict['profile_form'] = profile_form
     context_dict['picture'] = request.user.userprofile.picture
     return render(request, "amazingApp/profile.html", context_dict)
+
+@login_required
+def like_maze(request):
+
+    maze_name = None
+    if request.method == 'GET':
+        maze_name = request.GET['maze_name']
+
+    likes = 0
+    if maze_name:
+        maze = Maze.objects.get(name=(maze_name))
+        if maze:
+            likes = maze.likes + 1
+            maze.likes =  likes
+            maze.save()
+
+    return HttpResponse(likes)

@@ -14,4 +14,5 @@ urlpatterns = patterns('',
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^profile/$', views.edit_profile, name='profile'),
     url(r'add_profile/', views.register_profile, name='register_profile'),
+	url(r'^like_maze/$', views.like_maze, name='like_maze'),
 )

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% load staticfiles %}
-
 {% block block_title %}- solving maze - {{ maze_name }} {% endblock %}
 
 {% block css_libs %}
@@ -10,7 +9,6 @@
 
 
 {% block main_block %}
-
     <div class="button_block">
         <h2>You are currently solving {{ maze_name }}</h2>
         {% if maze_solved %}
@@ -29,9 +27,19 @@
 <form id="checkMaze" role="form" method="post" action=".">
         {% csrf_token %}
 </form>
+<p>
 
+<strong id="like_count">{{  maze.likes }}</strong> people like this maze
+
+{% if user.is_authenticated %}
+        <button id="likes" data-mazename="{{maze.name}}" class="btn btn-primary" type="button">
+        <span class="glyphicon glyphicon-thumbs-up"></span>
+        Like
+        </button>
+{% endif %}
+
+</p>
 {% endblock %}
-
 
 {% block js_libs %}
     <script src="{% static 'javascript/solve-maze.js' %}" type="text/javascript"></script>
